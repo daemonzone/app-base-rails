@@ -1,0 +1,44 @@
+<% @products = products.select{ |product| product[:type] == 'subscriptions'} %>		
+
+<% if !current_user.subscription.nil? %>
+	<% if current_user.subscription_valid? && current_user.subscription.subscription_type == 'basic' %>
+	<% @products = products.select{ |product| product[:type] == 'upgrades'} %>
+	<% end %>
+<% end %>
+
+<% @products.each do |product| %>
+	<div class="col-lg-12 col-sm-12 text-right mt-4">
+		<div class="dashboard_offer_box">
+			<div class="product_image">
+				<% unless product[:image].nil? %>
+				<img src="<%= asset_path(product[:image]) %>" />
+				<% end %>
+			</div>
+			<% if current_user.subscription.nil? %>
+				<%= link_to account_products_path, class: "offer_link" do %>
+					<%= product[:title] %>
+				<% end %>
+			<% else %>
+				<%= link_to buy_account_product_path(product[:id]), class: "offer_link" do %>
+					<%= product[:title] %>
+				<% end %>
+			<% end %>
+			<br/>
+			<small><%= product[:description].html_safe %></small>
+			<% unless product[:more_link].nil? %>
+                <p class="mt-2 text-right mt-2">
+                    <em class="fa fa-info-circle"></em> <a class="offer_more_link" href="<%= product[:more_link] %>" data-toggle="modal" data-title="<%= product[:title] %>" data-target="#details-modal">Maggiori informazioni</a>
+                </p>
+			<% end %>
+			<% if product[:discount] != 0 %> 
+				<s><%= number_to_currency(product[:price]) %></s> 
+			<% end %>
+            <div class="text-right mt-3 offer_price">
+                <%= link_to buy_account_product_path(product[:id]), class: "offer_link" do %>
+                <em class="fa fa-cart-plus"></em> Acquista subito
+                <% end %>
+                a soli <%= number_to_currency(product[:price] + product[:discount]) %>
+            </div>
+		</div>
+	</div>	
+<% end %>

@@ -1,0 +1,47 @@
+<% if !current_user.subscription.nil? && current_user.subscription.subscription_type == 'basic' %>
+	<% offer_days = siteinfo['post_subscription_offers_days'].value.to_i %>
+	<% unless DateTime.now >= (current_user.created_at + offer_days.days)  %>
+	<div class="card mb-4">	
+	  <div class="card-header bg-offer text-white">
+	    <strong><em class="fa fa-certificate"></em> Offerta per i nuovi iscritti</strong>
+	  </div>
+	  <div class="card-body text-justify">
+	    <p class="text-center mb-2">
+	    	<img class="offer-image" src="<%= asset_path('special/special_offer_03.png') %>" />
+			<strong>Acquista subito un pacchetto di Crediti a prezzo scontato!</strong>
+	    </p>
+
+		<div class="row mb-2">
+			<% products.select{ |product| product[:type] == 'credits_offer'}.each do |product| %>
+				<div class="col-lg-12 col-sm-12 text-center mt-4">
+					<%= link_to buy_account_product_path(product[:id]) do %>
+						<div class="dashboard_offer_box">
+							<strong><%= product[:title] %></strong>
+							<br/>
+							<% if product[:discount] != 0 %> 
+							<small><s><%= number_to_currency(product[:price]) %></s></small>
+							<% end %>
+							<strong><%= number_to_currency(product[:price] + product[:discount]) %></strong>
+						</div>
+					<% end %>
+				</div>	
+			<% end %>
+
+			<div class="col-lg-12 col-sm-12 text-center">
+				<div class="mt-4">
+					Affrettati, hai ancora <strong><%= distance_of_time_in_words((current_user.created_at + offer_days.days), DateTime.now) %></strong> per acquistarli!
+					<br />
+					<small>(L'offerta &egrave; valida solo fino al <strong><%= (current_user.created_at + offer_days.days).strftime("%d/%m/%Y") %>)</strong></small>
+				</div>
+			</div>	
+		</div>
+
+	    <p class="text-right">
+	    	<small>
+				(*) La presente è un'offerta a tempo riservata ai nuovi iscritti, <br />acquistabile entro i primi <%= offer_days %> giorni dalla data di iscrizione al portale
+			</small>
+	    </p>
+	  </div>
+	</div>
+	<% end %>
+<% end %>

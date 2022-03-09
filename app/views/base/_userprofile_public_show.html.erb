@@ -1,0 +1,120 @@
+<% @user.description        = "" if @user.description.nil? %>
+<% @user.public_description = @user.description if @user.public_description.empty? %>
+<% 
+  socials = [] 
+  socials << 'facebook'  if @user.public_facebook.present?
+  socials << 'instagram' if @user.public_instagram.present?
+  socials << 'linkedin'  if @user.public_linkedin.present?
+  socials << 'youtube'   if @user.public_youtube.present?
+%>
+<% content_for :head do %>
+    <title><%= @user.public_display_name %> | <%= @user.service.title %> a <%= @user.city %> <%= @user.prov %> | AVQ</title>
+    <meta property="og:title" content="<%= @user.public_display_name %>" />
+    <meta property="og:locale" content="it_IT" />
+
+    <meta name="description" content="<%= strip_tags(@user.description.gsub("\r\n", ' ')) %>" />
+    <meta property="og:description" content="<%= strip_tags(@user.description.gsub("\r\n", ' ')) %>" />
+
+    <link rel="canonical" href="<%= account_public_url(@user.public_url) %>" />
+    <meta property="og:url" content="<%= account_public_url(@user.public_url) %>" />
+    <meta property="og:site_name" content="<%= @user.public_display_name %>" />
+    <script type="application/ld+json">
+    {"url":"<%= account_public_url(@user.public_url) %>","name":"<%= @user.public_display_name %> | AVQ","description":"<%= strip_tags(@user.description.gsub("\r\n", ' ')) %>","headline":"Add Value Quality","@type":"WebSite","@context":"https://schema.org"}</script>
+<% end %>
+
+<!-- Page Content -->
+<div class="container vcard">
+
+  <!-- Heading Row -->
+  <div class="row my-4 user-gradient">
+    <div class="col-lg-4 col-sm-12">
+      <!-- Left -->
+      <div class="mt-2 mb-4 card">
+        <div class="main-image">
+          <%= image_tag avatar_url(@user), class: "img-fluid rounded mb-lg-0" %>
+        </div>
+        <div class="card-body">
+          <!-- Card Title -->
+          <h3 data-toggle="tooltip" data-placement="left" title="<%= @user.public_ragionesociale %>"><%= @user.public_display_name %></h3>
+          <p class="user-service mt-2"><%= @user.service.title %></p>
+  
+          <div class="user-icons">
+            <a href="tel:<%= @user.public_phone %>"><em class="fa fa-phone"></em></a>
+            <a href="mailto:<%= @user.public_email %>"><em class="fa fa-envelope"></em></a>
+            <a href="https://maps.google.com/?q=<%= [@user.public_address, @user.public_city].join(',') %>" target="_blank"><em class="fa fa-map"></em></a>
+          </div>
+
+          <!-- Contacts -->
+          <div class="card-box">
+            <div class=contact-item>
+              <span>Email</span>
+              <p><%= @user.public_email %></p>
+            </div>
+
+            <div class=contact-item>
+              <span>Telefono</span>
+              <p><%= @user.public_phone %></p>
+            </div>
+
+            <% if @user.public_website.present? %>
+            <div class=contact-item>
+              <span>Sito Web</span>
+              <p><a href="<%= @user.public_website %>" target="_blank"><%= @user.public_website %></a></p>
+            </div>
+            <% end %>
+          </div>
+
+          <!-- Address and Location -->
+          <div class="card-box">
+            <% if @user.public_address.present? && @user.public_city.present? %>
+            <div class=contact-item>
+              <span>Indirizzo</span>
+              <p><%= @user.public_address %></p>
+              <p><%= @user.public_city %> <%= @user.public_prov %></p>
+            </div>
+            <% end %>
+            
+            <% if @user.public_hours.present? %>
+            <div class=contact-item>
+              <span>Orari</span>
+              <p><%= @user.public_hours.gsub("\n", "<br/>").html_safe %></p>
+            </div>
+            <% end %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Center -->
+
+    <div class="col-lg-8 col-sm-12">
+      <div class="user-description">
+        <%= @user.public_description %>
+      </div>
+
+      <!-- Socials -->
+      <% if socials.size > 0 %>
+      <div class="user-socials mt-4 mb-4">   
+          <% socials.each do |s| %>
+            <% if @user.send("public_#{s}").present? %>
+              <a href="<%= @user.send("public_#{s}") %>" target="_blank"><em class="fab fa-<%=s%>"></em></a>
+            <% end %>
+          <% end %>
+      </div>
+      <% end %>      
+      <!-- END Socials -->
+
+      <% if @user.public_morestuff.present? %>
+        <div class="user-morestuff mt-2 mb-4">
+          <h5 class="font-weight-bold mb-2">Maggiori Informazioni</h5>
+          <%= @user.public_morestuff %>
+        </div>
+      <% end %>
+
+    </div>
+
+  </div>
+
+</div>
+<!-- /.container -->

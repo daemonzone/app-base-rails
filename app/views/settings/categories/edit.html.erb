@@ -1,0 +1,61 @@
+<div class="container mt-4 mb-4">
+    <div class="row">
+        <div class="col-sm-12 mb-4">
+            <h2><%= link_to 'Categorie', settings_categories_url %> <small><em class="fa fa-angle-right"></em> Modifica Categoria</small></h2>
+        </div>
+
+        <div class="col-sm-3 mb-4">
+	        <div class="form-group">
+	            <div class="col-xs-6">
+	                <label for="mobile"><h5>Cover</h5></label>
+		            <ul class="list-group">
+			            <li class="list-group-item text-right" style="padding: 0px;">
+			              <%= image_tag cover_url(@category), style: "max-width: none; width: 100%;" %>
+			              <!-- Upload Button -->
+			              <div class="text-center">
+			                  <%= form_for :category, url: settings_category_url(@category), action: :update, method: :patch do |f| %>
+			                  <div class="file">
+			                      <label for="" class="btn btn-default">
+			                          <%= f.file_field :cover, class: 'file-input', onchange: 'this.form.submit();' %>
+			                          <i class="fa fa-upload"></i>&nbsp;&nbsp;&nbsp; Aggiorna Cover
+			                      </label>
+			                  </div>
+			                  <% end %>
+			              </div>
+			            </li>
+		        	</ul>
+	            </div>
+	        </div>
+        </div>
+
+        <div class="col-sm-9 mb-4">
+			<div class="tab-content">
+				<div class="tab-pane active" id="home">
+					<%= form_for :category, url: settings_category_url(@category), method: :patch do |f| %>
+					<div class="form-group">
+						<div class="col-xs-6">
+							<label for="mobile"><h5>Nome</h5></label>
+							<%= f.text_field  :title, class: 'form-control', placeholder: 'Nome categoria', value: @category.title %>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-xs-6">
+							<label for="mobile"><h5>Descrizione</h5></label>
+							<%= f.text_area  :descr, class: 'form-control', placeholder: 'Descrizione', style: "height: 120px;", value: @category.descr %>
+						</div>
+					</div>
+
+					<div class="form-check">
+						<%= f.check_box  :active, { class: 'form-check-input' }, "true", "false" %>
+						<label class="form-check-label" for="categoryStatusCheck"> Attiva</label>
+					</div>
+
+					<%= f.submit 'Salva', class: "btn btn-primary mt-3" %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

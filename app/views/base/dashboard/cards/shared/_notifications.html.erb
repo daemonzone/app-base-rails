@@ -1,0 +1,45 @@
+<% if @notifications.count > 0 %>
+<div class="card mb-4" id="notifications_card">	
+  <div class="card-header">
+  	<span class="pull-right clickable close-icon" data-effect="fadeOut"><i class="fa fa-times"></i></span>  	
+    <em class="fa fa-bell"></em> <strong>Notifiche</strong>
+  </div>
+  <div class="card-block" id="notifications_list">
+  		<% @notifications.each_with_index do |n, index| %>
+      <div class="alert alert-<%=n.notification_type%> notification-item">
+          <%= n.created_at.strftime("%d/%m/%Y %H:%M") %>
+          <br />
+          <strong>
+            <% unless n.notification_url.nil? %> 
+              <a href="<%= account_notification_path(n) %>"><%= n.message %></a>
+            <% else %>
+              <%= n.message %>
+            <% end %>
+          </strong>
+      </div>    
+  		<% end %>
+  </div>
+</div>
+<% end %>
+<style type="text/css">.close-icon { cursor: pointer; }</style>
+<script type="text/javascript">
+  $('.close-icon').on('click',function() {
+    $.ajax({
+          url:'<%= account_notifications_mark_as_read_url %>',
+          type:'POST',
+          dataType:'json',
+          data:{
+              user_id: '<%= current_user.id %>',
+              authenticity_token: window._token
+          },
+          success:function(data){ 
+            $('#usermenu_notification_badge').fadeOut();
+          },
+          error:function(data){}
+      });
+    
+    // $(this).closest('.card').html('<p class="p-3">Nessuna notifica</p>');
+    $('#notifications_list').html('<p class="p-3 text-center">Nessuna notifica</p>').fadeIn();
+    $('#notifications_card').fadeOut();
+  });
+</script>

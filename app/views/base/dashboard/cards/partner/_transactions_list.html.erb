@@ -1,0 +1,52 @@
+<% total_credits_amount = 0 %>
+<div class="card mb-4">	
+  <div class="card-header">
+    <strong>Ultime 15 transazioni</strong>
+  </div>
+  <div class="card-body text-right">
+
+		<table class="table alt-pagination wallet-wrapper dataTable">
+			<% unless @transactions.empty? %>
+		    <thead>
+		        <tr role="row">
+		        	<th>Data</th>
+		        	<th>Descrizione</th>
+		        	<th class="text-right">Crediti</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		    	<% @transactions.each do |tr| %>
+		    	<% total_credits_amount += tr.amount %>
+		        <tr role="row">
+		        	<td class="text-nowrap"><small><%= tr.created_at.strftime("%d/%m/%Y %H:%M:%S") %></small></td>
+		        	<td><small><%= tr.description %></small></td>
+		        	<td class="text-right" role="row">
+		        		<%= tr.amount %>
+			        	<em class="fa fa-arrow-circle-<%= (tr.transaction_type == 'in' ? 'up text-success' : 'down text-danger') %>"></em>
+			        </td>
+				</tr>        
+				<% end %>
+			</tbody>
+			<!--
+			<tfoot>
+				<tr>
+					<td class="text-right" colspan="2">
+			    		<strong><small>Totale:</small></strong>
+					</td>
+					<td class="text-right">
+			        	<span><strong><%= total_credits_amount %></strong></span>
+					</td>
+					<td class="text-right"></td>
+				</tr>
+			</tfoot>
+			-->
+			<% else %>
+		    <tr role="row">
+		    	<td class="text-center">Nessuna transazione</td>
+		    </tr>
+			<% end %>
+		</table>
+
+  </div>
+</div>
+

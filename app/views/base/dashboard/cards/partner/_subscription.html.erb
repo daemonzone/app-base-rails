@@ -1,0 +1,31 @@
+<% if current_user.docsuploaded %>
+  <div class="card mb-4">	
+    <div class="card-header">
+      <strong>Il tuo abbonamento</strong>
+    </div>
+    
+    <div class="card-body text-right">
+      <% if current_user.subscription.present? %>
+        
+        <% if current_user.subscription_valid? %>
+          <strong>Abbonamento <%= current_user.subscription.subscription_type.capitalize %></strong>
+          <p class="text-right"><em><small>Scadenza: <%= current_user.subscription.expiration.to_datetime.strftime("%d/%m/%Y") %></small></em></p>
+        <% else %>
+          <p class="text-center"><strong><s>Abbonamento <%= current_user.subscription.subscription_type.capitalize %></s></strong></p>
+          <p class="text-center"><em><small><span class="font-weight-bold" style="color: red;">Scaduto il: <%= current_user.subscription.expiration.to_datetime.strftime("%d/%m/%Y") %></span></small></em></p>
+
+          <div class="card-body text-center">
+            Scegli subito dal pannello a lato la formula di abbonamento che preferisci per accedere ai servizi AVQ
+          </div>
+        <% end %>
+
+      <% else %>
+      
+        <div class="card-body text-center">
+          Scegli subito dal pannello a lato la formula di abbonamento che preferisci per accedere ai servizi AVQ
+        </div>
+      
+      <% end %>
+    </div>
+  </div>
+<% end %>

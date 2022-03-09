@@ -1,0 +1,126 @@
+<div class="container mt-4 mb-4">
+    <div class="row">
+        <div class="col-sm-12 mb-4">
+            <h2>Documentazione</h2>
+        </div>
+    </div>
+    
+    <div class="row">    
+
+        <div class="col-lg-6 col-md-6 mt-lg-6">
+            <% unless current_user.documents.empty? %>
+                <h5>Documenti caricati</h5>
+                <ul class="list-group documents mt-4">
+                <% current_user.documents.order(:doctype).each do |document| %>
+                        <li class="list-group-item mb-1 list-group-item-action d-flex justify-content-between align-items-center ">
+                        <% if document.status == 'non_conforme' %>
+
+                            <span style="width: 75%;">
+                                <s>
+                                    <%= link_to rails_blob_path(document.attachment, disposition: 'attachment'), target: "_blank" do %>
+                                    <%=document.name%>
+                                    <% end %>
+                                </s>
+                            </span>
+                            
+                            <span style="width: 85px; text-align: right;">
+                                    <span id="status_<%=document.id%>" class="badge badge-info badge-pill bg-<%= ('success' if document.status == 'approvato') %><%= ('danger' if document.status == 'non_conforme') %><%= ('warning' if document.status == 'attesa_verifica') %> align-right" data-widget="tooltip" title="<%= document.comments unless document.comments.nil? %>"><%= document.status.capitalize.gsub('_', ' ') %></span>
+                            </span>
+
+                            <span style="width: 50px; text-align: right;">
+                                <div class="btn-group" role="group" aria-label="stati">
+                                    <%= link_to remove_account_document_url(document_id: document.id, id: current_user.id), 
+                                    method: :delete, 
+                                    data: {confirm: "Stai rimuovendo uno dei documenti inviati. Sei sicuro?"},
+                                    style: "z-index: 100" do %>
+                                    <em class="fa fa-trash"></em>
+                                    <% end %>
+                                </div>
+                            </span>
+
+                        <% else %>
+
+                            <span style="width: 75%;">
+                                <%= link_to rails_blob_path(document.attachment, disposition: 'attachment'), target: "_blank" do %>
+                                <%=document.name%>
+                                <% end %>
+                            </span>
+                            
+                            <span style="width: 85px; text-align: right;">
+                                    <span id="status_<%=document.id%>" class="badge badge-info badge-pill bg-<%= ('success' if document.status == 'approvato') %><%= ('danger' if document.status == 'non_conforme') %><%= ('warning' if document.status == 'attesa_verifica') %> align-right"><%= document.status.capitalize.gsub('_', ' ') %></span>
+                            </span>
+
+                            <span style="width: 50px; text-align: right;">
+                                <% unless document.status == 'approvato' %>
+                                    <%= link_to remove_account_document_url(document_id: document.id, id: current_user.id), 
+                                    method: :delete, 
+                                    data: {confirm: "Stai rimuovendo uno dei documenti inviati. Sei sicuro?"},
+                                    style: "z-index: 100" do %>
+                                    <em class="fa fa-trash"></em>
+                                    <% end %>
+                                <% end %>
+                            </span>
+
+                        <% end %>
+                        </li>
+                <% end %>
+                </ul>
+            <% else %>
+                <div class="text-center mt-4">
+                    <p class="mb-4">
+                        Scegli il tipo di documento da caricare nel pannello a destra ed allega il file corrispondente da inviarci in approvazione (ad es: immagine, pdf, word) 
+                    </p>
+                </div>
+            <% end %>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mt-lg-6">
+
+            <h5>Documenti richiesti</h5>
+
+            <div class="row">
+                <% if !@select_doc_types.empty? %>
+                    <div class="col-lg-12 mt-4">
+                        <!-- DocType select -->
+                        <%= select_tag :doc_type, options_for_select(@select_doc_types.map{|dt|[dt[1][0], dt[1][1]] }, selected: @doc_type) %>
+                        <!-- #1 -->
+                    </div>
+
+                    <div class="col-lg-12 mt-12">
+                        <div class="dropzone" id="myDropzone" action="<%= upload_account_document_url(current_user.id) %>" style="padding: 0px;"></div>
+                    </div>
+                <% end %>
+
+                <% if !current_user.docsuploaded && @select_doc_types.empty? %>
+                    <div class="col-lg-12 col-md-12 mt-lg-12 mt-4 text-center" >
+                        <p class="mb-4">Congratulazioni! Hai caricato tutti i documenti richiesti!</p>
+                        
+                        <p class="mb-4"><strong>Premi il pulsante sottostante per confermare</strong>, i nostri consulenti provvederanno a visionare i tuoi documenti nel minor tempo possibile.</p>                        
+                        
+                        <%= button_to 'Invia documenti', account_documents_confirm_path, class: "btn btn-primary btn-block" %>
+                    </div>
+                <% end %>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    Dropzone.options.myDropzone = {
+        dictDefaultMessage: "Clicca qui o trascina un file in quest'area",
+        paramName: 'file',
+        maxFileSize: 2,
+        // acceptedFiles: "/*",
+        init: function() {
+            this.on("sending", function(file, xhr, formData) {
+                    formData.append("doc_type", $('#doc_type').val());
+                    formData.append("doc_name", $('#doc_type :selected').text());
+                });            
+            this.on('complete', function(file) {
+                location.reload();
+            })
+        }
+    }    
+</script>

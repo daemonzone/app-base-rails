@@ -1,0 +1,16 @@
+<% if !current_user.subscription.nil? && current_user.subscription.subscription_type == 'basic' %>
+<div class="card mb-4">	
+  <div class="card-header">
+    <a href="<%= account_products_url %>"><span class="pull-right" data-effect="fadeOut" data-toggle="tooltip" data-title="Acquista crediti"><i class="fa fa-shopping-cart"></i></span></a>
+    <strong>Crediti</strong>
+  </div>
+  <div class="card-body text-right">
+    <strong><span class="credits-value"><%= current_user.credits_total %></span> Crediti</strong>
+    <% unless controller_name == 'transactions' %>
+    <p><small><a href="<%= account_credits_url %>">Visualizza transazioni</a></small></p>
+    <% else %>
+    <p class="text-right"><em><small>Saldo al <%= DateTime.now.strftime("%d/%m/%Y %H:%M") %></small></em></p>
+    <% end %>
+  </div>
+</div>
+<% end %>

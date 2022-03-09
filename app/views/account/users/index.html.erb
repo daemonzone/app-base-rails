@@ -1,0 +1,47 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-sm-12 mb-4">
+            <h3>
+            	Elenco Professionisti
+            	<a href="<%= new_account_user_path %>" class="btn btn-primary ml-4"><em class="fa fa-plus-circle"></em> Aggiungi Nuovo</a>
+            </h3>
+        </div>
+	</div>
+
+	<%= render partial: 'shared/searchbars/users' %>
+    
+    <div class="row">
+        <div class="col-sm-12 mb-4">
+			<table class="table table-hover admin-table">
+			  <thead>
+			    <tr>
+			      <th scope="col" class="text-nowrap">Iscritto</th>
+			      <th scope="col" width="10"></th>
+			      <th scope="col" class="text-nowrap">Ragione Sociale</th>
+			      <th scope="col" width="10"><em class="fa fa-globe-americas"></em></th>
+			      <th scope="col" width="10">Prov</th>
+			      <th scope="col" class="text-nowrap">Citt&agrave;</th>
+			      <th scope="col">Categoria</th>
+			      <th scope="col">Servizio</th>
+			      <th scope="col">Rich.</th>
+			      <th scope="col">Stato</th>
+			      <th scope="col">Docs</th>
+			      <th scope="col">Azioni</th>
+			    </tr>
+			  </thead>
+			  <tbody id="users_tbody">
+			  	<%= render(partial: "account/users/list") %>
+			  </tbody>
+			</table>
+		    <small class="ml-2">
+		    	<em class="fa fa-star" style="color: gold;"></em> Abbonati Premium
+		    	<em class="fa fa-star" style="color: silver;"></em> Abbonati Basic
+			</small>
+        </div>
+
+        <div class="col-sm-12 mb-4 text-center" id="paginator">
+            <!-- Pagination -->
+			<%= paginate @users, :remote => true %>   
+		</div>        
+    </div>
+</div>

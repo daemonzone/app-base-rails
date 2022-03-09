@@ -1,0 +1,79 @@
+<!-- banner -->
+<% unless current_page?(root_path) %>
+
+	<!-- Public pages don't have any banner -->
+	<% unless (controller_name == 'users' and action_name == 'show')%>
+	<div class="small-banner">
+	  <div class="layer">
+	    <div class="container">
+	      <div class="row">
+	        <div class="col-lg-12" style="padding-top: 130px;"></div>
+	      </div>
+	  	</div>
+	  </div>
+	</div>
+	<% end %>
+
+<% else %>
+
+	<div class="banner" id="home">
+	  <div class="layer">
+	    <div class="container">
+	      <div class="row">
+	        <div class="col-lg-<%= (current_user.nil? ? '7' : '8') %> banner-text-w3ms">
+	          
+	          <!-- banner slider-->
+	          <div class="csslider infinity" id="slider1">
+	            <input type="radio" name="slides" checked="checked" id="slides_1" />
+
+	            <ul class="banner_slide_bg">
+	              <li>
+	                <div class="container-fluid">
+	                  <div class="w3ls_banner_txt">
+	                    <h1 class="b-w3ltxt text-capitalize mt-md-4">Ricerca professionisti</h1>
+	                    <h2 class="b-w3ltxt text-capitalize mt-md-2" style="height: 55px;">
+	                      nella tua <span class="static_span_slider">Città</span>
+	                      <div class="content__container dynamic_span_slider">
+	                          <ul class="content__container__list">
+	                            <li class="content__container__list__item">città</li>
+	                            <li class="content__container__list__item">Milano</li>
+	                            <li class="content__container__list__item">Roma</li>
+	                            <li class="content__container__list__item">Torino</li>
+	                          </ul>
+	                      </div>                      
+	                    </h2>
+	                    <p class="w3ls_pvt-title my-3">Parliamo di servizi offerti dai più qualificati artigiani e professionisti presenti sul territorio nazionale italiano. Scegli il servizio di tuo interesse e compila il modulo specificando la tua richiesta al professionista con il quale intendi metterti in contatto nella tua città.</p>
+	                    <a href="<%= page_show_url(slug: 'faq') %>" class="btn btn-banner my-3">Per saperne di più &gt;&gt;</a>
+	                  </div>
+	                </div>
+	              </li>
+	            </ul>
+
+	            <!--
+	            <div class="navigation">
+	              <div>
+	                <label for="slides_1"></label>
+	              </div>
+	            </div>
+	      		-->
+	          </div>
+	          <!-- //banner slider-->
+	        
+	        </div>
+
+	        <div class="col-lg-<%= (current_user.nil? ? '5' : '4') %> col-md-8 px-lg-3 px-0">
+	          <div class="banner-form-w3 ml-lg-5">
+				<% if current_user %>
+					<%= render 'shared/userbox' %>
+				<% else %>
+					<%= render 'users/registrations/new' %>
+				<% end %>
+	          </div>
+	        </div>
+
+	      </div>
+	    </div>
+	  </div>
+	</div>
+<% end %>
+<!-- //banner -->

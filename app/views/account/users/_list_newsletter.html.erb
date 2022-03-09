@@ -1,0 +1,18 @@
+<% @users.each do | user | %>
+<tr>
+    <td class="text-nowrap" data-sort="<%= user.created_at.strftime("%Y%m%d%H%M") %>"><%= user.created_at.strftime("%d/%m/%Y") %></td>            
+    <td><%= user.fullname%></td>
+    <td><%= user.email%></td>
+    <td><%= user.phone%></td>
+    <td class="text-nowrap"><%= user.prov %></td>
+    <td class="text-nowrap"><%= user.city %></td>
+    <td class="text-center">
+        <a href="<%= account_users_requests_url(user.id) %>" data-id="<%= user.id %>" data-title="Richieste" data-toggle="modal" data-target="#details-modal">
+            <span class="badge btn-info"><%= user.form_requests.size %></span>
+        </a>
+    </td>
+    <td class="text-center">
+        <%= render partial: 'shared/admin_delete_user', locals: { user: user, fulltextbutton: false } %>
+    </td>
+</tr>
+<% end %>

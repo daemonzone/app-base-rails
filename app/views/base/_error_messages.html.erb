@@ -1,0 +1,15 @@
+<% if object.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <h2>
+        Attenzione, <%= 'é presente'.pluralize(object.errors.count, :it) %> <%= pluralize(object.errors.count, 'errore') %>
+      </h2>
+      <ul>
+        <% object.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

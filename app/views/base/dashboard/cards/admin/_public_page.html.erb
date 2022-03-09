@@ -1,0 +1,15 @@
+<% unless @user.public_url.blank? %>
+<div class="card mb-4"> 
+  <div class="card-header">
+    <strong>Pagina Pubblica</strong>
+  </div>
+  <div class="card-body text-left">
+    <div class="mt-2">
+      <a href="<%= account_public_path(@user.public_url) %>" target="_blank">Visualizza pagina</a>
+      <%= link_to(edit_account_user_path + "?public", class: 'btn ml-2 btn-sm text-dark float-right', title: "Modifica Profilo pubblico", :data => { toggle: 'tooltip'}, style: "background-color: gold;") do %>
+      <em class="fa fa-users"></em>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,68 @@
+<!-- footer -->
+<footer>
+  <div class="footer-layer">
+    <div class="container py-md-3">
+      <div class="footer-grid_section text-center">
+        <div class="footer-title mb-3">
+          <img class="mainlogo" src="/images/logo-avq.png" alt="AVQ Professional Services" title="AVQ Professional Services">
+        </div>
+        <div class="footer-text">
+          <p>I migliori servizi offerti dai più qualificati artigiani e professionisti presenti sul territorio nazionale</p>
+        </div>
+        <ul class="social_section_1info">
+          <li class="facebook"><a href="https://www.facebook.com/avqservices/" target="_blank"><span class="fab fa-facebook-square"></span></a></li>
+          <li class="twitter"><a href="https://www.instagram.com/avqservices/" target="_blank"><span class="fab fa-instagram"></span></a></li>
+          <li class="linkedin"><a href="" target="_blank"><span class="fab fa-linkedin"></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- //footer -->
+
+<!-- copyright -->
+<section class="copyright">
+  <div class="container py-4">
+    <div class="row bottom">
+      <ul class="col-lg-4 links p-0">
+        <li><a href="<%= page_show_modal_path(slug: 'informativa-privacy') %>" data-toggle="modal" data-title="Informativa sulla Privacy" data-target="#privacy-policy-modal">Informativa Privacy</a></li>
+      </ul>
+      <div class="col-lg-8 copy-right p-0">
+        <p class="">&copy; <%= DateTime.now.strftime("%Y") %> <%= siteinfo['site_company_name'].value %> | Design by
+          <a href="https://www.daemonzone.it/"> DaemonZone&nbsp;IT</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- //copyright -->
+
+<!-- move top -->
+<div class="move-top text-right">
+  <a href="#home" class="move-top"> 
+    <span class="fa fa-angle-up  mb-3" aria-hidden="true"></span>
+  </a>
+</div>
+<!-- move top --> 
+
+<!-- privacy modal -->
+<div class="modal fade hide" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" style="top: 50px;" id="privacy-policy-modal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 250px; overflow-y: scroll;">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Accetto</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- // privacy modal -->

@@ -1,0 +1,33 @@
+<div class="padding">
+	<h4 class="mb-4"><%= (current_user.edited ? 'Bentornato!': 'Benvenuto!') %></h4>
+
+	<div class="form-style-w3layout">
+	    <div class="text-right">
+	      <%= image_tag avatar_url(current_user), style: "object-fit: cover; max-height: 200px; max-width: none; width: 100%;", class: "card-img-top" %>
+	      <div class="mt-4">
+	        <h5 class="card-text<%=' text-center' if current_user.is_admin? %>"><a href="<%= current_user.public_url.nil? ? '#' : account_public_url(current_user.public_url) %>"><strong><%= current_user.display_name %></a></strong></h5>
+	        <% if current_user.service %>
+		        <p class="card-text mt-2"><%= current_user.service.title %></p>
+	        <% end %>
+	        <% if current_user.city && current_user.prov %>
+		        <p class="card-text mt-2"><%= current_user.city %> (<%= current_user.prov %>)</p>
+	        <% end %>
+	        <% if !current_user.is_admin? && (!current_user.service || !current_user.city || !current_user.prov) %>
+		        <p class="card-text text-center mt-2">
+		        	<a href="<%= account_edit_path %>">Completa subito il tuo Profilo</a>
+		    	</p>
+	        <% end %>
+
+	      </div>
+	    </div>	
+	</div>
+
+	<div class="text-center mt-3">
+		<a href="<%=account_path %>" class="btn btn-sm btn-block btn-primary"><em class="fa fa-tachometer-alt"></em>&nbsp;Dashboard</a>
+		<%= button_to(destroy_user_session_path, :method => 'delete', class: 'btn btn-sm btn-block btn-danger mt-2', title: "Logout", :data => { toggle: 'tooltip'} ) do %>
+			<em class="fa fa-sign-out-alt"></em> Logout
+		<% end %>
+
+	</div>
+
+</div>

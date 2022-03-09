@@ -1,0 +1,44 @@
+<!-- Search Bar -->
+<%= form_for :form_request, url: account_form_requests_path, method: :get, :html => {:id => "filters"} do |f| %>
+<div class="row">
+    <div class="col-sm-10 mb-2"></div>
+    <div class="col-sm-2 mb-2">
+		<div class="custom-control custom-checkbox text-right">
+		  <%= check_box_tag :archived, 'include', @params[:archived], class: "custom-control-input", id: "archivedCheck", :onclick=>"$('#filters').submit();" %>
+		  <label class="custom-control-label" for="archivedCheck">Visualizza&nbsp;archiviate</label>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3 mb-2">
+		<div class="form-group">
+			<%= select_tag :prov, options_for_select(Province.all.collect {|u| [u.name, u.code]}, :selected => @params[:prov]), prompt: "Tutte le province", class: "custom-select form-control search_select" %>					    	
+		</div>
+    </div>
+    <div class="col-sm-3 mb-2">
+		<div class="form-group">
+			<%= select_tag :category, options_for_select(Category.all.order(:title).map {|u| [u.title, u.id]}, :selected => @params[:category]), prompt: "Tutte le Categorie", class: "custom-select form-control search_select" %>
+		</div>
+    </div>
+    <div class="col-sm-3 mb-2">
+		<div class="form-group">
+			<%= select_tag :service, options_for_select(@services.map {|u| [u.title, u.id]}, :selected => @params[:service]), prompt: "Tutti i Servizi", class: "custom-select form-control search_select" %>
+		</div>
+    </div>
+    <div class="col-sm-3 mb-2">
+		<div class="input-group">
+		  <%= text_field_tag :searchtext, '', class: "form-control", placeholder: "Ricerca Richiesta", :value => @params[:searchtext] %>
+		  <div class="input-group-append">
+			<button class="btn btn btn-primary" type="submit"><em class="fa fa-search"></em></button>
+		  </div>			  
+		</div>
+    </div>
+</div>
+<% end %>
+<script type="text/javascript">
+	$('.search_select').on('change', function(e) {
+		$('#filters').submit();
+	});
+</script>
+<!-- // 	Search Bar -->	

@@ -1,0 +1,11 @@
+<%= form_for :transaction, url: account_transactions_path, method: :post do |f| %>
+	Amount:
+	<br />
+	<%= f.text_field :amount  %>
+	<br />
+	Description
+	<br />
+	<%= f.text_field :description  %>
+	<br />
+	<%= f.submit "Create Transaction (test)" %>
+<% end %>

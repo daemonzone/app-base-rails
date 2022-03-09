@@ -1,0 +1,15 @@
+<% content_for :title do %>
+Ordine confermato
+<% end %>
+
+<p>Congratulazioni, il tuo acquisto è andato a buon fine!</p>
+
+<p>I dettagli del tuo ordine: </p>
+
+<p>
+	Ordine <strong><a href="<%= account_order_url(@order.token)%>"><%=@order.token%></a></strong><br />
+	Prodotto: <strong><em><%=@order.product_title%></em></strong><br />
+	Importo pagato: <strong><%= number_to_currency(@order.amount) %></strong><br />
+	Pagamento: <strong>PayPal / Carta di credito</strong>
+	<br />
+</p>

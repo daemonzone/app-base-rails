@@ -1,0 +1,25 @@
+<div class="item vcard" style="padding-top: 120px;">
+    <div class="card">
+        <div class="main-image main-image-sm">
+            <%= image_tag avatar_url(user), class: "img-fluid rounded mb-lg-0" %>
+        </div>
+        <div class="card-body">
+          <!-- Card Title -->
+          <h3>
+            &nbsp;<%= user.public_display_name %>&nbsp;
+          </h3>                              
+          <p class="user-service mt-2"><%= user.service.title %></p>
+  
+          <div class="user-icons">
+            <a href="tel:<%= user.public_phone %>"><em class="fa fa-phone"></em></a>
+            <a href="mailto:<%= user.public_email %>"><em class="fa fa-envelope"></em></a>
+            <a href="https://maps.google.com/?q=<%= [user.public_address, user.public_city].join(',') %>" target="_blank"><em class="fa fa-map"></em></a>
+          </div>
+
+          <div class="user-description mt-3">
+            <p class="card-text text-justify"><%= user.description[0..120] + "..." if user.description.present? %></p>
+          </div>
+
+        </div>
+    </div>
+</div>

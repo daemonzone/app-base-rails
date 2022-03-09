@@ -1,0 +1,130 @@
+<% if current_user %>
+	<% unless current_page?(root_path) || (['pages', 'application'].include? controller_name) || (controller_name == 'users' && action_name == 'show')%>
+		<nav class="navbar navbar-expand-lg navbar-dark secondary-color navbar-dark bg-dark">
+			<div class="container">
+
+			  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#UserMenu" aria-controls="navbarSupportedContent-5" aria-expanded="false" aria-label="Toggle navigation">
+			    	<span class="navbar-toggler-icon"></span>
+			  	</button>
+
+			    <!-- navbar -->
+			    <div class="collapse navbar-collapse" id="UserMenu">  
+				    <ul class="navbar-nav mr-auto">
+				      	<% if current_user.edited || current_user.is_admin? %>
+				        <li class="nav-item<%= controller_name == 'accounts' && (['show','edit'].include? action_name) ? ' active' : '' %>">
+				        	<a class="nav-link" href="<%= account_url %>"><em class="fa fa-tachometer-alt"></em> Dashboard</a>
+				        </li>
+				      	<% else %>
+				        <li class="nav-item<%= action_name == 'edit' ? ' active' : '' %>">
+				        	<a class="nav-link" href="<%= account_edit_url %>"><em class="fa fa-user"></em> Anagrafica</a>
+				        </li>
+				      	<% end %>
+
+						<% if current_user.is_admin? %>
+				        <li class="nav-item <%= (controller_name['form_requests']) ? ' active' : '' %>">
+				        	<a class="nav-link" href="<%= account_form_requests_url %>"><em class="fa fa-list"></em> Richieste
+								<% if @requests_count && @requests_count > 0 %>
+								<span class="badge btn-danger"><%=@requests_count%></span>
+								<% end %>
+							</a>
+				        </li>
+						<% end %>
+
+				      	<% if current_user.active && !current_user.is_admin? %>
+				        <li class="nav-item <%= (controller_name['requests']) ? ' active' : '' %>">
+			            	<a class="nav-link" href="<%= account_requests_url %>"><em class="fa fa-list"></em> Richieste
+								<% if @requests_count && @requests_count > 0 %>
+								<span class="badge btn-danger"><%=@requests_count%></span>
+								<% end %>
+			            	</a>
+				        </li>
+				      	<% end %>
+
+				        <li class="nav-item <%= (controller_name['orders'] || controller_name['products']) ? ' active' : '' %>">
+				        	<a class="nav-link" href="<%= account_orders_url %>"><em class="fa fa-shopping-cart"></em> Ordini</a>
+				        </li>
+
+						<% if current_user.is_admin? %>
+				        <li class="nav-item <%= controller_name['users'] && (['index','edit'].include? action_name) ? ' active' : '' %>">
+				        	<a class="nav-link" href="<%= account_users_url %>"><em class="fa fa-users"></em> Professionisti</a>
+				        </li>
+				        <li class="nav-item <%= (controller_name['users'] && action_name == 'newsletter') ? ' active' : '' %>">
+				        	<a class="nav-link" href="<%= account_users_newsletter_url %>"><em class="fa fa-paper-plane"></em> Newsletter</a>
+				        </li>
+						<% end %>
+				    </ul>
+
+				    <ul class="navbar-nav ml-auto nav-flex-icons">
+						<li class="nav-item">
+							<a href="<%= account_url %>" class="nav-link"><i class="fa fa-bell"></i> Notifiche 
+								<% if @notifications && @notifications.count > 0 %>
+								<span id="usermenu_notification_badge" class="badge btn-danger"><%=@notifications.count%></span>
+								<% end %>
+							</a>
+						</li>	        
+		
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+							<%= image_tag avatar_url(current_user), class: "navbar-profile-pic-small" %>
+							</a>					      
+
+							<!-- User Dropdown -->
+							<div class="dropdown-menu" style="padding: 0px; left: -150px;">
+								<div class="card" style="width: 250px; text-align: center;">
+									<div class="card-body">
+										<%= image_tag avatar_url(current_user), class: "navbar-profile-pic" %>
+										<h5 class="card-title mt-3"><%=current_user.fullname%></h5>
+										<p class="card-text mb-3"><%=current_user.email%></p>
+										<% unless current_user.is_admin? %>
+										<p class="card-text mt-1 mb-3"><%=current_user.service.title unless current_user.service.nil? %></p>					    
+										<% end %>
+
+										<!-- buttons -->				    
+										<div class="row">
+											<div class="col-md-12 text-right">
+												<%= button_to(destroy_user_session_path, :method => 'delete', class: 'btn btn-danger ml-2 btn-sm float-right', title: "Logout", :data => { toggle: 'tooltip'} ) do %>
+												<em class="fa fa-sign-out-alt"></em>
+												<% end %>
+
+												<%= link_to(edit_user_registration_path, class: 'btn btn-info ml-2 btn-sm float-right', title: "Cambio password", :data => { toggle: 'tooltip'}) do %>
+												<em class="fa fa-key"></em>
+												<% end %>
+
+												<%= link_to(account_edit_path, class: 'btn btn-info ml-2 btn-sm float-right', title: "Modifica profilo", :data => { toggle: 'tooltip'}) do %>
+												<em class="fa fa-user"></em>
+												<% end %>
+
+												<% if !current_user.subscription.nil? && current_user.subscription.subscription_type == 'premium' %>
+													<%= link_to(account_public_edit_path, class: 'btn ml-2 btn-sm text-dark float-right', title: "Modifica Profilo pubblico", :data => { toggle: 'tooltip'}, style: "background-color: gold;") do %>
+													<em class="fa fa-users"></em>
+													<% end %>
+												<% end %>
+
+												<% if current_user.is_admin? %>
+													<%= link_to(settings_path, class: 'btn btn-secondary btn-sm ml-2 float-right', title: "Impostazioni portale", :data => { toggle: 'tooltip'}) do %>
+													<em class="fa fa-cogs"></em>
+													<% end %>
+												<% end %>
+											</div>
+										</div>
+									<!-- // buttons -->
+									</div>
+								</div>
+							</div>
+							<!-- // User Dropdown -->
+						</li>
+					</ul>
+				</div>
+				<!-- // navbar -->
+
+			</div>
+		</nav>
+	<% end %>	
+
+	<div class="progress">
+	  <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%" id="loading_progress_bar"></div>
+	</div>
+
+    <%= render 'shared/details_modal' %>
+    
+<% end %>

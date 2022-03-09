@@ -1,0 +1,54 @@
+<% professionisti = User.where(:usertype => 0).count %>
+<% professionisti_premium = User.where("CAST(subscription_data AS VARCHAR) like '%premium%'").count %>
+<% professionisti_basic   = User.where("CAST(subscription_data AS VARCHAR) like '%basic%'").count %>
+<% utonti = User.where(:usertype => 2).count %>
+<% formrequests = FormRequest.all.count %>
+<% requests = Request.all.count %>
+<% requests_completate = Request.where(:archived => true).count %>
+<div class="card mb-4">	
+  <div class="card-header">
+    <strong>Qualche numero...</strong>
+  </div>
+  <div class="card-block text-right">
+	  <ul class="list-group">
+	    	<li class="list-group-item" style="margin: 2px;">
+	    		<span><strong>Professionisti</strong></span>
+				<span class="badge badge-dark badge-pill align-right"><span class="credits-value"><%= professionisti %></span></span>	    		
+	    	</li>
+
+	    	<li class="list-group-item" style="margin: 2px;">
+	    		<span><small>di cui abbonati Premium</small></span>
+				<span class="badge badge-dark badge-pill align-right"><%= professionisti_premium %></span>	    		
+	    	</li>
+	    	
+	    	<li class="list-group-item" style="margin: 2px;">
+	    		<span><small>di cui abbonati Basic</small></span>
+				<span class="badge badge-dark badge-pill text-right-right"><%= professionisti_basic %></span>	    		
+	    	</li>
+
+	    	<li class="list-group-item" style="margin: 2px; border: 0px;">	
+	    	</li>
+
+	    	<li class="list-group-item" style="margin: 2px;">
+	    		<span><strong>Richieste ricevute</strong></span>
+				<span class="badge badge-dark badge-pill align-right"><span class="credits-value"><%= formrequests %></span></span>	    		
+	    	</li>
+	    	<li class="list-group-item" style="margin: 2px;">
+	    		<span><small>da utenti</small></span>
+				<span class="badge badge-dark badge-pill align-right"><%= utonti %></span>	
+			</li>
+
+	    	<li class="list-group-item" style="margin: 2px; border: 0px;">	
+	    	</li>
+
+	    	<li class="list-group-item" style="margin: 2px;">
+	    		<span><strong>Richieste inoltrate</strong></span>
+				<span class="badge badge-dark badge-pill align-right"><%= requests %></span>	    		
+	    	</li>
+	    	<li class="list-group-item" style="margin: 2px;">
+	    		<span><small>di cui completate</small></span>
+				<span class="badge badge-dark badge-pill align-right"><span class="credits-value"><%= requests_completate %></span></span>	    		
+	    	</li>
+	    </ul>
+  </div>
+</div>

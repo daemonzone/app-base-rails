@@ -1,0 +1,34 @@
+<ul class="list-group">
+  <li class="list-group-item text-right" style="padding: 0px;">
+    <%= image_tag avatar_url(current_user), style: "max-width: none; width: 100%;" %>
+  </li>
+  <li class="list-group-item text-right"><span class="pull-left">Membro da</span> <strong><%=current_user.created_at.strftime('%b %Y')%></strong></li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">Stato Account</span> 
+    <% if current_user.active || current_user.is_admin? %>
+      <span class="badge badge-success font-size-100" data-toggle="tooltip" data-placement="right" title="<%= (current_user.is_admin? ? 'Admin' : 'Attivo')%>"><em class="fa <%= (current_user.is_admin? ? 'fa-user-plus' : 'fa-check')%>"></em></span>                
+    <% else %>
+      <span class="badge badge-warning font-size-100" data-toggle="tooltip" data-placement="right" title="In attesa di verifica"><em class="fa fa-exclamation-triangle"></em></span>
+    <% end %>
+    <!--
+    <span class="badge badge-danger font-size-100" data-toggle="tooltip" data-placement="right" title="Bloccato"><em class="fa fa-times-circle"></em></span>
+    <span class="badge badge-danger font-size-100" data-toggle="tooltip" data-placement="right" title="Abbonamento scaduto"><em class="fa fa-calendar-times"></em></span>
+    -->
+  </li>
+  <li class="list-group-item text-right">
+    <span class="pull-left">Abbonamento</span>
+    <% unless current_user.subscription.nil? %>
+      <strong><%= current_user.subscription.subscription_type.capitalize %></strong>
+    <% else %>
+      <% if current_user.is_admin? %>
+      <strong>God</strong>
+      <% else %>
+      <em>Nessuno</em>
+      <% end %>
+    <% end %>
+  </li>
+  <!--
+  <span class="badge badge-danger font-size-100" data-toggle="tooltip" data-placement="right" title="Bloccato"><em class="fa fa-times-circle"></em></span>
+  <span class="badge badge-danger font-size-100" data-toggle="tooltip" data-placement="right" title="Abbonamento scaduto"><em class="fa fa-calendar-times"></em></span>
+  -->
+</ul> 

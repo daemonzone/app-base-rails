@@ -1,0 +1,36 @@
+<% unless current_user.docsuploaded %>
+<div class="card mb-4">
+  <div class="card-header bg-warning">
+    <em class="fa fa-exclamation-triangle"></em> <strong>Invio Documenti</strong>
+  </div>
+  <div class="card-body">
+    <div class="card-text text-center">
+    	<p>Grazie per avere completato i dati del tuo profilo!</p>
+	    <p class="card-text mt-3">Clicca sul pulsante sottostante, <strong>invia subito i documenti necessari</strong> <br />per attivare il tuo account.</p>
+	    <p class="card-text mt-3 text-right">
+	    	<a href="<%= account_documents_url %>" class="btn btn-primary btn-md">Upload documenti</a>
+	    </p>
+    </div>
+  </div>
+</div>
+<% end %>
+<% if current_user.docsuploaded && !current_user.active %>
+<div class="card mb-4">
+  <div class="card-header bg-info text-white">
+    <em class="fa fa-copy"></em> <strong>Documentazione inviata</strong>
+  </div>
+  <div class="card-body">
+    <!-- <h5 class="card-title">Benvenuto nel portale AVQ Servizi!</h5> -->
+    <div class="card-text text-center">
+	    <p><strong>Grazie mille! <br />Abbiamo ricevuto la tua documentazione!</strong></p>
+	    <p class="mt-3 text-justify">
+	    	<small>
+			Un nostro consulente verificherà la documentazione il prima possibile, <strong>riceverai una notifica</strong> via email non appena provvederemo ad attivare il tuo account, oppure ti contatteremo al numero di telefono che hai specificato per eventuali verifiche ulteriori.
+			<br /><br />
+			<p class="text-right">A presto!</span>
+			</small>
+		</p>
+    </div>
+  </div>
+</div>
+<% end %>

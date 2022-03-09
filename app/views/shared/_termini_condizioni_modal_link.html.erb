@@ -1,0 +1,7 @@
+<div class="termini-e-condizioni">
+	<input class="mdl-checkboxfield__input privacy_footer_checkbox" type="checkbox" id="subscribe-gdpr"> Dichiaro di aver preso visione, compreso ed accettato i <strong><a href="<%= page_show_modal_path(slug: 'termini-condizioni') %>" data-toggle="modal" title="Termini &amp; Condizioni" data-title="Termini &amp; Condizioni" data-target="#privacy-policy-modal">Termini &amp; Condizioni</a></strong> ed <strong><a href="<%= page_show_modal_path(slug: 'informativa-privacy') %>" data-toggle="modal" title="Informativa Privacy" data-title="Informativa Privacy" data-target="#privacy-policy-modal">Informativa Privacy</a></strong> e di prestare il consenso al trattamento dei dati personali ai sensi del dgls. 193/2003 </div>	
+<script type="text/javascript">
+$("#subscribe-gdpr").on('change', function() {
+	$('#btn-register').prop('disabled', !$(this).prop('checked'));
+});	
+</script>

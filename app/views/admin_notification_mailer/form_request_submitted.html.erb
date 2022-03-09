@@ -1,0 +1,15 @@
+<% content_for :title do %>
+Nuova Richiesta
+<% end%>
+
+<p>
+  <%= @form_request.requester_name %> ha inviato la seguente richiesta:
+</p>
+
+<p>
+  <em><%= @form_request.description %></em>
+</p>
+
+<p>
+	<strong><a href="<%= account_notification_url(@notification) %>">Clicca qui</a></strong> per visualizzarla ed inoltrarla ai professionisti
+</p>

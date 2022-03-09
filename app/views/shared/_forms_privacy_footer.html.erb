@@ -1,0 +1,8 @@
+<div class="privacy_footer mb20">
+    <input class="mdl-checkboxfield__input privacy_footer_checkbox" type="checkbox" id="subscribe-gdpr"> Dichiaro di aver preso visione delle condizioni generali di utilizzo del portale, dell'<strong><a href="<%= page_show_modal_path(slug: 'informativa-privacy') %>" data-toggle="modal" data-title="Informativa sulla Privacy" data-target="#privacy-policy-modal">Informativa sulla Privacy</a></strong> e di prestare il consenso al trattamento dei miei dati personali ai sensi del dgls. 193/2003
+</div>
+<script type="text/javascript">
+$("#subscribe-gdpr").on('change', function() {
+	$('#request-form-submit').prop('disabled', !$(this).prop('checked'));
+});	
+</script>

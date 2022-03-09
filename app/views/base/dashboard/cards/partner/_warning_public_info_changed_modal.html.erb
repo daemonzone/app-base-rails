@@ -1,0 +1,35 @@
+<div>
+	<h4 class="mb-2">Vuoi aggiornare il tuo indirizzo pubblico su AVQ?</h4>
+
+	<p class="mb-2">
+		L'indirizzo della tua pagina Web pubblica sul portale AVQ è composto automaticamente con la tua <strong>ragione sociale</strong> e la <strong>Categoria di Servizio</strong> a cui appartieni.
+	</p>
+
+	<p class="text-justify mb-2">Il tuo <strong>attuale indirizzo pubblico</strong> è il seguente:</p>
+	<p class="text-center">
+      <span class="text-primary font-weight-bold"><%= account_public_url(current_user.public_url) if (current_user.public_url.present?) %></span>
+    </p>
+
+	<p class="mb-4"></p>
+
+	<p class="mb-2">In seguito ad una <strong>variazione della tua Categoria di Servizio</strong>, il tuo indirizzo pubblico ora dovrebbe essere:</p>
+
+	<p class="mb-2 text-center">
+      <span class="text-primary font-weight-bold"><%= account_public_url(current_user.auto_public_url) if (current_user.auto_public_url.present?) %></span>
+	</p>
+
+	<p class="text-justify mb-2">Puoi aggiornare subito il tuo indirizzo pubblico cliccando sul pulsante <strong>Aggiorna Indirizzo</strong><sup>(*)</sup></p>
+
+	<p class="text-justify mb-2"><sup>(*)</sup><small><em>Tieni conto che la tua pagina pubblica può essere già stata indicizzata da Google e dagli altri motori di ricerca con l'indirizzo attuale; cambiando tale indirizzo, l'attuale pagina diventerà raggiungibile al nuovo "<%= account_public_url(current_user.auto_public_url) if (current_user.auto_public_url.present?) %>" mentre il precedente indirizzo non sarà più disponibile e quindi perderai l'eventuale popolarità finora raggiunta sui motori di ricerca, così come eventuali collegamenti su siti esterni non saranno più validi.</em></small></p>
+
+    <%= form_for :user, url: account_edit_url(current_user), action: :update, method: :post do |f| %>
+	<%= f.hidden_field :public_url, value: current_user.auto_public_url %>
+	<div class="choose_buttons text-right mt-4">
+		<div class="form-group">
+			<button href="" class="btn btn-secondary" data-dismiss="modal">Non modificare</button>
+            <button class="btn btn-md btn-primary" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Aggiorna Indirizzo</button>
+
+		</div>
+	</div>
+	<% end %>
+</div>

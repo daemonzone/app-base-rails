@@ -1,0 +1,20 @@
+<script type="text/javascript">
+<% if (flash[:notice]) then %>
+  SweetAlert.fire({ title: 'Good job!',
+                    icon: 'success',
+                  	html: '<%= flash[:notice].html_safe %>'
+                });
+<% end %>
+<% if (flash[:alert]) then %>
+  SweetAlert.fire({ title: 'Attenzione',
+                    icon: 'warning',
+                  	html: '<%= flash[:alert].html_safe %>'
+                });
+<% end %>
+<% if (flash[:error]) then %>
+  SweetAlert.fire({ title: 'Errore',
+                    icon: 'error',
+                  	html: '<%= flash[:error].html_safe if flash[:error].is_a? String %>'
+                });
+<% end %>
+</script>

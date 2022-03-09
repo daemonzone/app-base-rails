@@ -1,0 +1,37 @@
+<!-- supertop fixed header -->
+<div class="supertop-head-container">
+  <div class="ml-auto text-left pull-left">
+    <span><a href="/"><img class="mainlogo-icon" src="/images/logo-only-avq-icon.png" alt="<%= siteinfo['site_company_name'].value %>" title="AVQ Professional Services"></a><%= siteinfo['site_company_name'].value %></span>
+  </div>
+  <div class=" ml-auto text-right right-p pull-right" style="white-space: nowrap;">
+    <ul>
+      <li class="mr-3"><span class="fa fa-phone"></span> <%= siteinfo['site_phone'].value %></li>
+      <li class="mr-3"><span class="fa fa-envelope-open"></span> <a href="#"><%= siteinfo['site_email'].value %></a> </li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- header -->
+<header>
+  <div class="container">
+    <!-- nav -->
+    <nav class="py-3 d-lg-flex">
+      <div id="logo">
+        <a href="/"><img class="mainlogo" src="/images/logo-avq.png" title="AVQ Professional Services" alt="AVQ Professional Services"></a>
+      </div>
+      <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
+      <input type="checkbox" id="drop" />
+      <ul class="menu ml-auto mt-1">
+        <li class="active"><a href="/">Home</a></li>
+        <li class=""><a href="/#services">Servizi</a></li>
+        <li class=""><a href="<%= page_show_url(slug: 'faq') %>">FAQ</a></li>
+        <li class=""><a href="<%= page_show_url(slug: 'chi-siamo') %>">Chi siamo</a></li>
+        <li class=""><a href="<%= page_show_url(slug: 'contatti') %>">Contatti</a></li>
+      </ul>
+    </nav>
+    <!-- //nav -->
+
+  </div>
+</header>
+<!-- //header -->

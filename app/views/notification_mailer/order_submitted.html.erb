@@ -1,0 +1,19 @@
+<% content_for :title do %>
+Ordine registrato
+<% end %>
+
+<p><strong>Congratulazioni!</strong> Il tuo acquisto è stato registrato</p>
+
+<p><a href="<%= account_order_url(@order.token)%>"><%=@order.token%></a> - <em><%=@order.product_title%></em> - <%= number_to_currency(@order.amount) %></p>
+
+<p>Di seguito gli estremi per effettuare il pagamento attraverso Bonifico Bancario:</p>
+
+<p>
+	&nbsp;&nbsp;&nbsp;INTESTATARIO: <strong>AVQ di Andrea Valzano</strong><br />
+	&nbsp;&nbsp;&nbsp;BANCA: <strong>Banca Reale</strong><br />
+	&nbsp;&nbsp;&nbsp;IBAN: <strong>IT27B0313801100000012993713</strong><br />
+	&nbsp;&nbsp;&nbsp;Causale: <strong><%= ( @user.display_name ? @user.display_name : @user.fullname)%> - <%=@order.token%> - <%=@order.product_title%></strong><br />
+	&nbsp;&nbsp;&nbsp;Somma dovuta: <strong><%= number_to_currency(@order.amount) %></strong>
+</p>
+
+<p>L'ordine verrà evaso non appena riceveremo l'accredito del bonifico</p>

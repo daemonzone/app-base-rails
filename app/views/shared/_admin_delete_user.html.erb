@@ -1,0 +1,8 @@
+<div class="form-group" role="group" aria-label="stati">
+  <!-- Delete Button -->
+  <%= form_for :user, url: account_user_path(user), method: :delete do |f| %>
+    <%= f.button :submit, class: 'form-control btn btn-sm btn-block btn-danger', data: { confirm: "Stai per CANCELLARE DEFINITIVAMENTE questo utente! Sei sicuro?",  toggle: "tooltip", title: "Cancella utente" } do %>
+      <em class="fa fa-trash %>"></em> <%= "Cancella utente" if defined?(fulltextbutton) && fulltextbutton %>
+    <% end %>
+  <% end %> 
+</div>

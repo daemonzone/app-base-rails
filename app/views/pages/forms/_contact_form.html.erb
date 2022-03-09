@@ -1,0 +1,99 @@
+<%= render 'base/notifications' %>
+
+<div class="col-lg-4 col-sm-12">
+
+    <div class="layer-stretch text-right">
+      <div class="layer-wrapper pb-4">
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="mb20 capitalize mr-4" id="pagetitle">Contatti</h1>
+          </div>
+        </div>
+      </div>
+  
+      <div class="layer-wrapper pb-4 mr-4">
+          <p><%= siteinfo['site_company_name'].value %></p>
+          <p>
+            Corso Trapani n. 136
+            <br />
+            10138 Torino
+            <br />
+            P.IVA 10957160012
+          </p>
+          
+          <p class="mt-4">Puoi contattarci ai seguenti recapiti:
+            <br />
+            <br />
+            <%= siteinfo['site_phone'].value %>
+            <br />
+            <%= siteinfo['site_email'].value %>
+          </p>
+      </div>
+    </div>
+</div>
+
+<div class="col-sm-12 col-md-8 subscribe-right p-lg-5 py-sm-5 py-2">
+    <h5 class="mb-4">Compila subito il form ed inviaci la tua richiesta, ti risponderemo il pi&ugrave; presto possibile!</h5>
+
+    <%= form_for :contact_form, url: contact_form_path, method: :post, action: :create do |f| %>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">                                                
+              <%= text_field_tag  'contact_form[lastname]', '', class: 'form-control input-lg d-none', placeholder: 'Il tuo Cognome'%>
+              <div class="col-xs-6">
+                  <label for="first_name"><h6>Nome e Cognome</h6></label>
+                  <%= f.text_field  :requester_name, class: 'form-control input-lg', placeholder: 'Il tuo Nome e Cognome', required: true %>
+              </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">                          
+              <div class="col-xs-6">
+                  <label for="email"><h6>Email</h6></label>
+                  <%= f.text_field  :requester_email, class: 'form-control', placeholder: 'Indirizzo email', required: true %>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">                                                
+              <div class="col-xs-6">
+                  <label for="first_name"><h6>Telefono</h6></label>
+                  <%= f.text_field  :requester_phone, class: 'form-control input-lg', placeholder: 'Il tuo telefono' %>
+              </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">                                                
+              <div class="col-xs-6">
+                  <label for="first_name"><h6>Provincia</h6></label>
+                  <%= f.select :requester_prov, options_for_select(Province.all.collect {|u| [u.name, u.name]}), prompt: "La tua provincia" %>                    
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">                          
+          <div class="col-xs-6">
+              <label for="phone"><h6>Oggetto del contatto</h6></label>
+              <%= f.text_field  :subject, class: 'form-control input-lg', placeholder: 'Oggetto del contatto', required: true %>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <div class="col-xs-6">
+             <label for="mobile"><h6>Scrivi il tuo messaggio</h6></label>
+              <%= f.text_area  :message, class: 'form-control', placeholder: 'Il tuo messaggio' %>
+          </div>
+      </div>
+
+      <%= render 'shared/forms_privacy_footer' %>
+
+      <div class="input-text text-right">
+        <%= f.submit 'Invia Messaggio', class: "form-style-w3layout btn request-form-submit-btn", disabled: "disabled", id: "request-form-submit" %>  
+      </div>
+
+    <% end %>
+</div>

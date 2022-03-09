@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-12 text-left mt-4">
+        <div class="card mb-4">	
+            <div class="card-header">
+                <strong>Abbonamento</strong>
+            </div>
+
+            <% subscription_button = false %>
+            <% if @user.subscription.present? %>
+                <% if @user.subscription_valid? %>
+                    <div class="card-body text-right">
+                        <strong>Abbonamento <%= @user.subscription.subscription_type.capitalize %></strong>
+                        <p class="text-right"><em><small>ID: <%= @user.subscription.id[0..7] %></small></em></p>                    
+                        <p class="text-right"><em><small>Scadenza: <%= @user.subscription.expiration.to_datetime.strftime("%d/%m/%Y") %></small></em></p>
+
+                        <%= form_for :subscription, url: account_users_remove_subscription_url(@user), method: :post do |f| %>
+                        <div class="mt-2 text-right">
+                            <input type="hidden" name="user_id" value="<%=@user.id%>" />
+                            <button class="btn btn-primary btn-block btn-sm"><em class="fa fa-trash"></em> Rimuovi</button>
+                        </div>
+                        <% end %>
+                    </div>
+                <% else %>
+                    <div class="card-body text-center">Abbonamento scaduto</div>
+                    <% subscription_button = true %>
+                <% end %>
+            <% else %>
+                <div class="card-body text-center">Nessun abbonamento valido</div>
+                <% subscription_button = true %>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<% if subscription_button %>
+<div class="row">
+    <div class="col-12 text-left mt-4">
+        <div class="card mb-4"> 
+            <div class="card-header">
+                <strong>Gestione abbonamento</strong>
+            </div>
+            <div class="card-body text-left">
+                <%= form_for :subscription, url: account_users_add_subscription_url(@user), method: :post do |f| %>
+                <div class="form-group">                                                
+                    <label for="first_name"><h6>Tipologia di abbonamento</h6></label>
+                    <div class="input-group mb-2">
+                        <select class="form-control" name="subscription_type">
+                            <option value="0">Basic</option>
+                            <option value="1">Premium</option>
+                        </select>
+                    </div>
+
+                    <label for="first_name"><h6>Scadenza</h6></label>
+                    <div class="input-group">
+                        <input type="hidden" name="user_id" value="<%=@user.id%>" />
+                        <input type="text" name="subscription_expiry" class="form-control datepicker" placeholder="Scadenza abbonamento" required="required" readonly value="<%= (DateTime.now + 1.year).strftime('%d/%m/%Y')%>">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary btn"><em class="fa fa-plus"></em> Aggiungi</button>
+                        </div>
+                    </div>
+                </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+<% end %>

@@ -1,0 +1,20 @@
+<% if @recipients.empty? %>
+	<div class="p-2 text-center">
+		Nessun professionista trovato
+		<br />
+		<small><em class="fa fa-info-circle"></em> <em>Prova a cambiare i parametri di ricerca</em></small>
+	</div>
+<% end %>
+<% @recipients.each do | c | %>
+	<li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category-list-item" data-id="<%=c.id%>">
+		<span>
+		    <% unless c.subscription.nil? %>
+		      <em class="fa fa-star" style="color: <%= (c.subscription.subscription_type == 'premium' ? 'gold' : 'silver') %>;"></em>
+		    <% end %>
+			<%= c.display_name %>
+		</span>
+	    <span class="badge badge-pill text-right" style="white-space:normal;">
+	    	<p><small><strong><%= c.user_service %></strong><br /><%= c.city %> <strong>(<%= c.prov %>)</strong></small></p>
+	    </span>
+    </li>
+<% end %>

@@ -1,0 +1,11 @@
+<% content_for :title do %>
+Ordine da confermare
+<% end%>
+
+<p><%= @user.fullname %><%= " (#{@user.ragionesociale})" if @user.ragionesociale %> ha inserito il seguente ordine <strong>da confermare</strong>:</p>
+
+<p><a href="<%= account_order_url(@order.token)%>"><%=@order.token%></a> - <em><%=@order.product_title%></em> - <%= number_to_currency(@order.amount) %></p>
+
+<p>Pagamento: bonifico bancario</p>
+
+<p>Have a great day!</p>

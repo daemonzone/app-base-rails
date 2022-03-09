@@ -1,0 +1,28 @@
+<div class="container">
+	<h3 class="mt-3">Configurazioni</h3>
+	
+	<div class="mt-3 mb-4">
+		<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Configurazione</th>		
+				<th>Valore</th>		
+				<th>Descrizione</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% siteinfo.each do |key, s| %>
+			<tr>
+				<td class="text-nowrap">
+					<strong><%= siteinfo[key].title %></strong>
+					<br />
+					<%= key %>
+				</td>		
+				<td><%= siteinfo[key].value %></td>		
+				<td><%= siteinfo[key].description %></td>		
+			</tr>
+			<% end %>
+		</tbody>
+		</table>
+	</div>
+</div>

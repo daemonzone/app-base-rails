@@ -1,0 +1,20 @@
+<div class="container text-center">
+	<div class="row">
+		<% @bkgrounds.each do |bk| %>
+			<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+				<a href="#" class="bkground-item" data-id="<%=bk%>" data-dismiss="modal">
+					<img src="/images/bkgrounds/thumbs/<%=bk%>" style="border: 1px solid #666;" />
+				</a>
+			</div>
+		<% end %>
+	</div>
+</div>
+<script type="text/javascript">
+	$('.bkground-item').on('click', function(e) {
+		e.preventDefault();
+		var bkid = e.currentTarget.dataset['id'];
+		$('#user_public_bkground').val(bkid);
+		$('#public_page_container').css("background-image", "url(/images/bkgrounds/" + bkid + ")");
+		$('#public-bkground-save-btn').show();
+	});
+</script>

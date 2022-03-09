@@ -1,0 +1,26 @@
+<div class="padding">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "base/error_messages", object: resource %>
+    <h5 class="mb-3">Registrati ed Entra nel Network</h5>
+    <div class="form-style-w3layout">
+      <%= text_field_tag  'user[surname]', '', class: 'form-control input-lg d-none', placeholder: 'Il tuo Cognome'%>
+
+      <%= f.text_field      :fullname, class: 'form-control input-lg', autofocus: true, placeholder: 'Il tuo Nome e Cognome', required: "required" %>
+
+      <%= f.email_field     :email, autocomplete: "email", class: 'form-control input-lg', placeholder: 'Il tuo Indirizzo Email', required: "required" %>
+      
+      <%= f.password_field  :password, class: 'form-control input-lg', placeholder: 'Scegli una password', required: "required" %>
+      
+      <%= f.select :category_id, options_for_select(@categories.map { |c| [c.title, c.id] }), { :prompt => "Seleziona categoria di competenza" }, :required => true %>
+
+      <%= render 'shared/termini_condizioni_modal_link' %>
+
+      <%= f.submit "Registrati >>", class: 'btn btn-primary btn-lg btn-block signin-btn mt-3', id: 'btn-register', :disabled => true %>
+
+    </div>
+    
+  <% end %>
+
+  <div class="text-center mt-3">Hai gi&agrave; un account? <strong><%= link_to 'Accedi', new_user_session_path %></strong></div>
+
+</div>

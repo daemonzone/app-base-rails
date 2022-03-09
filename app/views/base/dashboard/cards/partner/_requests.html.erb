@@ -1,0 +1,31 @@
+<div class="card mb-4">	
+  <div class="card-header bg-info text-white">
+    <em class="fa fa-calendar-alt"></em> <strong>Richieste ricevute</strong>
+  </div>
+  <div class="card-block">
+    <% if @requests.count > 0 %>
+      <ul class="list-group">
+  		<% @requests.each do |req| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center" style="margin: 1px;">
+            <span style="width: 75%;">
+              <small class="mr-1"><%= req.created_at.strftime("%d/%m/%Y") %></small>
+              <a href="<%= account_request_url(req) %>" data-id="<%= req.id %>" data-title="<%= req.title %>" data-toggle="" data-target="#details-modal"><%= req.title %></a>
+            </span>
+
+              <!-- Status -->
+              <span style="width: 85px; text-align: right;">
+                  <% if req.archived %>
+                  <span class="badge badge-dark badge-pill align-right" data-widget="tooltip" data-placement="bottom" title="<%= req.archived_reason %>">archiviata</span>
+                  <% else %>
+                      <span class="badge badge-info badge-pill align-right"><%= req.status %></span>
+                  <% end %>
+              </span>
+              <!-- // Status -->
+          </li>
+  		<% end %>
+    </ul>
+    <% else %>
+      <p class="p-3">Nessuna richiesta</p>
+    <% end %>
+  </div>
+</div>

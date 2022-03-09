@@ -1,0 +1,49 @@
+<div class="card mb-4">
+  <div class="card-header bg-default">
+    <em class="fa fa-book-open"></em> <strong>Professionisti per Categoria</strong>
+  </div>
+  <div class="card-body">
+  	<div class="row mb-4">
+  		<div class="col-6">
+			<ul class="list-group">
+				<% @users.each do |fr| %>
+		  		<li class="list-group-item d-flex justify-content-between align-items-center" style="margin:2px;">
+					<%= fr.title%>
+					<span class="badge badge-dark badge-pill align-right"><%= fr.total %></span>	
+				</li>
+				<% end %>
+			</ul>
+		</div>
+
+  		<div class="col-6">
+			<div id="canvas-holder">
+				<canvas id="chart-area-users" width="400" height="400"/>
+			</div>
+  		</div>
+  	</div>
+  </div>
+</div>
+<script type="text/javascript">
+	var doughnutData = <%= @users_arr.to_json.html_safe %>;
+	var options = {
+			responsive: true,
+			animation: {
+				animateScale: true,
+				animateRotate: true
+			}
+		}
+	var ctx = document.getElementById("chart-area-users").getContext("2d");
+	window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, options);
+	document.getElementById('chart-legenda').innerHTML = window.myDoughnut.generateLegend();
+</script>
+<style type="text/css">
+.doughnut-legend { list-style: none; padding-left: 5px; }
+span.doughnut-legend-text { font-size: 12px; }
+span.doughnut-legend-icon {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-right: 10px;
+  border-radius: 10px;
+}
+</style>

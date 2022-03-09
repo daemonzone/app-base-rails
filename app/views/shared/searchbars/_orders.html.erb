@@ -1,0 +1,26 @@
+<!-- Search Bar -->
+<%= form_for :order, url: account_orders_path, method: :get, :html => {:id => "filters"} do |f| %>
+<div class="row">
+    <div class="col-sm-3 mb-2">
+		<div class="input-group">
+		  <%= text_field_tag :searchtext, '', class: "form-control", placeholder: "Ricerca Ordine", :value => @params[:searchtext] %>
+		  <div class="input-group-append">
+			<button class="btn btn btn-primary" type="submit"><em class="fa fa-search"></em></button>
+		  </div>			  
+		</div>
+    </div>
+    <div class="col-sm-3 mb-2">
+		<div class="form-group">
+			<%= select_tag :paid, options_for_select({ "Pagato" => "1", "Attesa" => "0" }, :selected => @params[:paid]), prompt: "Pagamento...", class: "custom-select form-control search_select" %>
+		</div>
+    </div>
+    <div class="col-sm-6 mb-2">
+    </div>
+</div>
+<% end %>
+<script type="text/javascript">
+	$('.search_select').on('change', function(e) {
+		$('#filters').submit();
+	});
+</script>
+<!-- // 	Search Bar -->	

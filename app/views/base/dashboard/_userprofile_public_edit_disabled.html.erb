@@ -1,0 +1,57 @@
+        <div class="col-sm-12 mb-4">
+            <h3>Modifica il tuo Profilo pubblico</h3>
+        </div>
+
+        <div class="col-sm-3"><!--left col-->
+          <ul class="list-group">
+            <li class="list-group-item text-right" style="padding: 0px;">
+              <%= image_tag avatar_url(@user), style: "max-width: none; width: 100%;" %>
+            </li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Membro da</strong></span> <%=@user.created_at.strftime('%b %Y')%></li>
+            <li class="list-group-item text-right">
+              <span class="pull-left"><strong>Stato Account</strong></span> 
+              <% if @user.active || @user.is_admin? %>
+                <span class="badge badge-success font-size-100" data-toggle="tooltip" data-placement="right" title="Attivo"><em class="fa fa-check"></em></span>                
+              <% else %>
+                <span class="badge badge-warning font-size-100" data-toggle="tooltip" data-placement="right" title="In attesa di verifica"><em class="fa fa-exclamation-triangle"></em></span>
+              <% end %>
+            </li>
+          </ul>
+
+          <div class="mb-4"></div>
+               
+        </div><!--/col-3-->
+
+        <div class="col-sm-6"><!--right col-->
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+                      <div class="form-group">                                                
+                        <label for="first_name"><h5>Ragione Sociale</h5></label>
+                        <%= text_field_tag :public_ragionesociale, @user.ragionesociale, class: 'form-control input-lg', placeholder: 'Ragione Sociale', :required => true, disabled: "disabled" %>
+                      </div>
+
+                      <div class="form-group">                                                
+                        <label for="first_name"><h5>Descrizione della tua attività</h5></label>
+                        <%= text_area_tag :description, @user.description, class: 'form-control input-lg', placeholder: 'Inserisci la descrizione della tua attività', :required => true, disabled: "disabled" %>
+                      </div>
+
+                      <div class="form-group">
+                         <label for="mobile"><h5>Sito Web</h5></label>
+                          <%= text_field_tag  :public_website, @user.public_website, class: 'form-control', placeholder: 'Telefono', required: "required", disabled: "disabled" %>
+                      </div>
+
+                      <div class="form-group">
+                         <label for="mobile"><h5>Telefono per contatti diretti</h5></label>
+                          <%= text_field_tag  :public_phone, @user.public_phone, class: 'form-control', placeholder: 'Telefono', required: "required", disabled: "disabled", style: "width: 60%" %>
+                      </div>
+
+                      <div class="form-group">                          
+                        <label for="email"><h5>Email</h5></label>
+                        <%= text_field_tag  :public_email, @user.public_email, class: 'form-control', placeholder: 'Indirizzo email', required: "required", disabled: "disabled" %>
+                      </div>
+
+                <br>
+              
+             </div><!--/tab-pane-->
+          </div><!--/tab-content-->
+        </div><!--/col-6-->

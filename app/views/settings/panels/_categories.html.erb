@@ -1,0 +1,89 @@
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="list-group" id="list-tab" role="tablist">
+		<%= form_for :category, url: settings_categories_url, :method => :post do |f| %>
+		<div class="input-group mb-3">
+		  <%= f.text_field :title, class: "form-control", placeholder: "Nuova categoria",  :aria => { describedby: "basic-addon2"}  %>
+		  <div class="input-group-append">
+		    <span class="input-group-text" id="basic-addon2">
+				<%= f.button :submit, class: "btn btn-primary btn-sm" do %>		    	
+		    		<em class="fa fa-plus-square"></em>
+		    	<% end %>
+		    </span>
+		  </div>
+		</div>
+	    <% end %>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="list-group" id="list-tab" role="tablist">
+		<ul class="list-group" id="categories_list">
+        <% @categories.each do | c | %>
+			
+			<li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category-list-item" data-id="<%=c.id%>">
+      			<span><em class="<%= 'fa fa-eye-slash' unless c.active %>" data-toggle="tooltip" title="Non visibile"></em> <%= c.title %></span>
+			    <span class="badge badge-pill">
+					<div class="btn-group" role="group" aria-label="Azioni">
+						<span class="btn btn-primary btn-sm"><a href="<%= edit_settings_category_url(c.id) %>" style="color: #fff;"><em class="fa fa-edit"></em></a></span>
+						<span class="btn btn-primary btn-sm" data-id="<%= c.id%>" data-context="category" data-toggle="modal" data-target="#confirmation-modal"><em class="fa fa-trash"></em></span>
+					</div>
+					<div style="display: none;" id="modal_buttons_category_<%=c.id%>">
+		              <button type="button" data-dismiss="modal" class="swal2-cancel swal2-styled" aria-label="" style="display: inline-block; background-color: rgb(221, 221, 221);">Annulla</button>
+		              <%= button_to settings_category_path(c.id), :method => :delete, class: "swal2-confirm swal2-styled", style: "display: inline-block; background-color: rgb(48, 133, 214);" do |f| %>
+		                Conferma
+		              <% end %>
+					</div>
+			    </span>
+		    </li>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$('.category-list-item').click( function (e) {
+	var id = e.currentTarget.dataset['id'];
+	$('#category_services_id').val(id);
+	$('.category-list-item').removeClass('active');
+	e.currentTarget.classList.add('active');
+	updateCategoriesServices(id);
+	
+	$('#category_services_initial_help').hide();
+	$('#category_service_panel').show();
+});
+
+function updateCategoriesServices(category_id)
+{
+    $.ajax({
+		url:'<%= settings_services_url %>',
+		type:'GET',
+		dataType:'text',
+		data:{
+		  category_id: category_id,
+		  authenticity_token: window._token
+		},
+		success:function(data){
+			$('#category_services_list').html("" + data);
+		},
+		error:function(data){
+		}
+    });
+}
+function updateServices()
+{
+    $.ajax({
+		url:'<%= settings_services_url %>',
+		type:'GET',
+		dataType:'text',
+		data:{
+		  authenticity_token: window._token
+		},
+		success:function(data){
+			$('#services_list').html("" + data);
+		},
+		error:function(data){
+		}
+    });
+}
+</script>

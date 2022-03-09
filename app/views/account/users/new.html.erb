@@ -1,0 +1,29 @@
+<div class="container mt-3">
+    <div class="row">
+        <%= render 'base/dashboard/userprofile_admin_new', :locals => { :user => @user = @user } %>
+    </div><!--/row-->
+</div>
+<script type="text/javascript">
+$('#user_category_id').change(function() {
+	var serviceslist = $("#user_service_id");
+	var category_id = $("#user_category_id").val();  
+	$.ajax({
+		url:'<%= settings_services_url %>',
+		type:'GET',
+		dataType:'json',
+		data:{
+			category_id: category_id,
+			authenticity_token: window._token
+		},
+		success:function(data){
+			// console.log(data);
+			serviceslist.html('');
+			$.each(data, function(index, item) {
+				serviceslist.append(new Option(item.title, item.id));
+			});
+		},
+			error:function(data){
+		}
+	});    
+});
+</script>

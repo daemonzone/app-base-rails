@@ -1,0 +1,15 @@
+<% content_for :title do %>
+Benvenuto <%= @resource.fullname %>!
+<% end%>
+
+<p>Ti sei iscritto al portale AVQ</p>
+
+<p>Ora puoi attivare il tuo account cliccando sul link sottostante:</p>
+
+<p>
+	<a href="<%= confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %>" class="btn-primary">Attiva account</a>
+</p>
+
+<p>oppure copiando il seguente indirizzo nella barra del tuo browser:</p>
+
+<p><%= confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>

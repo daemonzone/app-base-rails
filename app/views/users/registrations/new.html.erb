@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-7 mx-auto">
+      <div class="signin-form">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= render "base/error_messages", object: resource %>
+          <!--
+          <p class="hint-text">Accedi con il tuo profilo</p>
+          <div class="social-btn text-center">
+            <a href="#" class="btn btn-primary btn-lg" title="Facebook"><i class="fa fa-facebook"></i></a>
+            <a href="#" class="btn btn-info btn-lg" title="Twitter"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="btn btn-danger btn-lg" title="Google"><i class="fa fa-google"></i></a>
+          </div>
+          <div class="or-seperator"><b>or</b></div>
+          -->
+          <h3 class="mb-4 text-center"><img style="width: 50px;" src="/images/logo-only-avq-icon.png" alt="<%= siteinfo['site_company_name'].value %>" title="AVQ Professional Services"> Registrati al Portale AVQ</h3>
+
+          <div class="form-group">
+            <%= text_field_tag  'user[surname]', '', class: 'form-control input-lg d-none', placeholder: 'Il tuo Cognome'%>
+
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control input-lg', placeholder: 'Il tuo Indirizzo Email', required: "required" %>
+          </div>
+          <div class="form-group">
+            <%= f.password_field :password, autofocus: true, class: 'form-control input-lg', placeholder: "Scegli una Password", required: "required" %>
+          </div>  
+          <div class="form-group">
+            <%= f.text_field :fullname, class: 'form-control input-lg', placeholder: 'Il tuo Nome e Cognome', required: "required" %>
+          </div>  
+          <div class="form-group">
+            <%= f.select :category_id, options_for_select(@categories.map { |c| [c.title, c.id] }), { :prompt => "Seleziona categoria di competenza" }, :required => true %>            
+          </div>
+          
+          <div class="form-group">
+            <%= render 'shared/termini_condizioni_modal_link' %>
+          </div>    
+
+          <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-lg btn-block signin-btn mt-3" id="btn-register" disabled="disable" >Registrati</button>
+          </div>
+          
+
+        <% end %>
+        <div class="text-center small">Hai gi&agrave; un account? <%= link_to 'Accedi', new_user_session_path %></div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-12 text-left mt-4">
+      <div class="card mb-4">	
+
+        <div class="card-header">
+          <strong>Crediti</strong>
+        </div>
+
+        <div class="card-body text-right">
+            <strong><span class="credits-value"><%= @user.credits_total %></span> Crediti</strong>
+            <p class="text-right"><em><small>Saldo al <%= DateTime.now.strftime("%d/%m/%Y %H:%M") %></small></em></p>
+            
+            <h5 class="mt-2 mb-2">Aggiungi crediti</h5>
+            
+            <%= form_for :transaction, url: account_users_add_credits_url(@user), method: :post do |f| %>
+            <div class="form-group">                                                
+                <div class="input-group">
+                    <input type="hidden" name="user_id" value="<%=@user.id%>" />
+                    <input type="number" name="credits_amount" class="form-control" placeholder="Quantità" required="required" value="50">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary btn"><em class="fa fa-plus"></em> Aggiungi</button>
+                    </div>
+                </div>
+            </div>
+            <% end %>
+        </div>
+
+      </div>
+    </div>
+</div>

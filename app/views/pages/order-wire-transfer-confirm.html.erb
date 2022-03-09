@@ -1,0 +1,16 @@
+<% unless session[:product_to_buy].nil? %>
+<p class="mb-4">Di seguito gli estremi per effettuare il pagamento attraverso Bonifico Bancario</p>
+
+<p class="mb-4">
+	INTESTATARIO: <strong>AVQ di Andrea Valzano</strong><br />
+	NOME BANCA: <strong>Banca Reale</strong><br />
+	IBAN: <strong>IT27B0313801100000012993713</strong><br />
+	Causale: <strong><%= ( current_user.display_name ? current_user.display_name : current_user.fullname) %> - <%= session[:product_to_buy]['title'].html_safe %></strong>
+</p>
+
+	<%= form_for :order, url: account_orders_path, method: :post, action: :create do |f| %>
+	<div class="text-right">
+		<%= f.submit 'Conferma ordine', class: "btn btn-primary" %>  	
+	</div>
+	<% end %>
+<% end %>

@@ -1,0 +1,9 @@
+<%= render 'base/dashboard/cards/shared/notifications' %>
+<%= render 'base/dashboard/cards/admin/quick_report' if current_user.is_admin? %>
+<% if current_user.is_partner? %>
+<%= render 'base/dashboard/cards/partner/documents' %>
+<%= render 'base/dashboard/cards/partner/subscription' %>
+<%= render 'base/dashboard/cards/partner/public_page_reminder' %>
+<%= render 'base/dashboard/cards/partner/credits'   %>
+<%= render 'base/dashboard/cards/partner/credits_offer' %>
+<% end %>

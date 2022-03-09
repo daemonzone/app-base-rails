@@ -1,0 +1,46 @@
+    <style>
+      #gdpr-cookie-notice {padding: 7px 15px; display: none; text-align: left; position: fixed; bottom: 0; width: 100%; background: #222; color: rgba(255,255,255,0.8); z-index: 30000;}
+      #gdpr-cookie-notice a {cursor: pointer; margin-left: 10px; margin-top: 6px;}
+      @media (max-width: 767px) {
+          #cookie-notice span {display: block; padding-top: 3px; margin-bottom: 13px; }
+          #cookie-notice a {position: relative; bottom: 4px; }
+      }
+    </style>
+    <div id="gdpr-cookie-notice"><span>
+    Informativa Questo sito o gli strumenti terzi da questo utilizzati si avvalgono di cookie necessari al funzionamento ed utili alle finalità illustrate nella cookie policy. Se vuoi saperne di più o negare il consenso a tutti o ad alcuni cookie, consulta la cookie policy cliccando sul pulsante Maggiori Informazioni. Chiudendo questo banner, scorrendo questa pagina o cliccando il pulsante Accetto acconsenti all’uso dei cookie.
+    </span><a id="cookie-notice-accept" class="btn btn-primary btn-sm">Accetto</a><a href="<%= page_show_modal_path(slug: 'informativa-privacy') %>" class="btn btn-primary btn-sm" data-toggle="modal" data-title="Informativa Privacy" data-target="#privacy-policy-modal">Maggiori informazioni</a></div>
+    <script>
+        function createCookie(name,value,days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days*24*60*60*1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+        function eraseCookie(name) {
+            createCookie(name,"",-1);
+        }
+
+        document.getElementById('gdpr-cookie-notice').style.display = '';
+        if(readCookie('cookie-notice-dismissed') == 'true') {
+            // Include here tracing javascripts...
+        } else {
+            document.getElementById('gdpr-cookie-notice').style.display = 'inline';
+        }
+        document.getElementById('cookie-notice-accept').addEventListener('click', function(){
+            createCookie('cookie-notice-dismissed','true',31);
+            document.getElementById('gdpr-cookie-notice').style.display = 'none';
+        });
+    </script>

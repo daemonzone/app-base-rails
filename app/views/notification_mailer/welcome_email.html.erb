@@ -1,0 +1,11 @@
+<% content_for :title do %>
+Congratulazioni <%= @resource.fullname %>!
+<% end%>
+
+<p>Hai confermato la tua iscrizione al portale AVQ!</p>
+
+<p>Puoi ora accedere al portale cliccando sul pulsante sottostante:</p>
+
+<% content_for :link do %>
+<a href="<%= account_url %>" class="btn-primary">Accedi al Portale</a>
+<% end%>

@@ -1,0 +1,115 @@
+<div class="container">
+  <div class="container-page py-lg-5 py-3">
+    <div class="layer-stretch">
+      <div class="layer-wrapper pb-4 pl-2 pr-2">
+        <div class="row">
+          <div class="col-md-12">
+          </div>
+        </div>
+
+        <!-- request form div -->
+        <div class="row">
+            <div class="col-md-12 page-contents">
+              <!-- title -->
+              <div class="container">
+                <div class="row">
+                  <div class="check-title">
+                    <h3 class="mb0">Ricerca il professionista nella tua città!</h3>
+                    <hr class="mt10">
+                    <p class="mb20 services">Parliamo di servizi offerti dai più qualificati artigiani e professionisti presenti sul territorio nazionale italiano.</p>
+                  </div>
+                </div>
+              </div>
+              <!-- // title -->
+          </div>
+        </div>
+        <!-- //request form div -->
+
+        <section class="subscribe-service">
+          <div class="container-fluid">
+            <div class="row">
+              
+              <div class="col-md-4 d-flex subscribe-left p-lg-5 py-sm-5 py-4">
+                <div class="text white">
+                  <h1 class="mb40"><%= @category.title.capitalize %></h1>
+                  <h4 class="white service-description" id="service-description-text"><%= @category.descr.capitalize %></h4>
+                </div>
+              </div>
+              
+              <div class="col-md-8 subscribe-right p-lg-5 py-sm-5 py-2">
+                <p class="mb20 services">Scegli il servizio di tuo interesse e compila il modulo specificando la tua richiesta al professionista con il quale intendi metterti in contatto nella tua città.</p>
+                
+                <!-- // form -->
+                <%= form_for @formrequest, url: submit_formrequest_path(:key => @category.key), action: :forward, method: :post, class: "form-style-w3layout" do |f| %>
+
+                  <%= f.hidden_field :category_id, value: @category.id %>
+                  <%= f.select :service_id, options_for_select(options_for_select(@services.map {|c| [c.title, c.id]})), prompt: "Scegli il Servizio" %>
+
+                  <div class="row">
+                    <div class="col-sm-8">
+                        <%= f.text_field :requester_city, placeholder: "Inserisci la tua città", required: "required" %>
+                    </div>
+                    <div class="col-sm-4 mb-1">
+                        <%= f.select :requester_prov, options_for_select(Province.all.collect {|u| [u.name, u.code]}), prompt: "Provincia...", required: "required" %>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12 mb-1">
+                      <%= f.text_field :requester_name, placeholder: "Inserisci il tuo nome completo", required: "required" %>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12 mb-1">
+                      <%= f.text_field :requester_email, placeholder: "Inserisci il tuo Indirizzo Email", required: "required" %>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12 mb-1">
+                      <%= f.text_field :requester_phone, placeholder: "Inserisci il tuo numero di telefono", required: "required" %>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12 mt-3 mb-3">
+                      <h3>La tua richiesta</h3>
+                    </div>
+                  </div>                  
+
+                  <div class="row">
+                    <div class="col-sm-12 mb-1">
+                      <%= f.text_field :title, placeholder: "Oggetto della richiesta", required: "required" %>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12 mb-1">
+                      <%= f.text_area :description, placeholder: "Inserisci una descrizione della tua esigenza", required: "required" %>
+                    </div>
+                  </div>
+
+                  <%= render 'shared/forms_privacy_footer' %>
+
+                  <div class="input-text text-right">
+                    <%= f.submit 'Invia Richiesta', class: "form-style-w3layout btn request-form-submit-btn", disabled: "disabled", id: "request-form-submit" %>  
+                  </div>
+                <% end %>
+                <!-- // form -->
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 d-flex justify-content-center">
+                <a href="/#services"><button class="btn btn-default mt20" type="button">Torna alla Lista Servizi</button></a>
+              </div>
+            </div>
+            
+          </div>
+        </section>
+            
+      </div>
+    </div>
+  </div>
+</div>

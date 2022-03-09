@@ -1,0 +1,3 @@
+$('#users_tbody').html('<%= escape_javascript render(partial: "account/users/list_newsletter") %>');
+$('#paginator').html('<%= escape_javascript(paginate(@users, :remote => true, :param_name => "page").to_s) %>');
+$('[data-toggle="tooltip"]').tooltip()

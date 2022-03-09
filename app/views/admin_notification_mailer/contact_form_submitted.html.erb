@@ -1,0 +1,20 @@
+<% content_for :title do %>
+Invio Form Contatti
+<% end%>
+<p>
+  E' stata inviata la seguente richiesta attraverso il Form Contatti:
+</p>
+
+<p>
+  Utente: <strong><%= @contact_form.requester_name %></strong>
+  <br />
+  Email: <strong><%= @contact_form.requester_email %></strong>
+  <br />
+  Telefono: <strong><%= @contact_form.requester_phone if @contact_form.requester_phone? %></strong>
+  <br />
+  Provincia: <strong><%= @contact_form.requester_prov %></strong>
+</p>
+
+<p>
+  <%= @contact_form.message %>
+</p>

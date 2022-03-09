@@ -1,0 +1,42 @@
+<div class="container mt-3">
+    <div class="row">
+
+        <%= render 'base/dashboard/userprofile_edit', :locals => { :user => @user = current_user } %>
+
+        <div class="col-sm-3">
+            <%= render 'shared/help' %>
+        </div>
+
+    </div><!--/row-->
+</div>
+<% unless (current_user.nil? || current_user.edited || current_user.is_admin? ) %>
+<script type="text/javascript">
+  SweetAlert.fire('Good job!',
+                  "Completa subito la tua anagrafica e spedisci i documenti richiesti.<br/>In brevissimo tempo il tuo Profilo sarà approvato e potrai operare sulla nostra piattaforma",
+                  'success');
+</script>
+<% end %>
+<script type="text/javascript">
+$('#user_category_id').change(function() {
+	var serviceslist = $("#user_service_id");
+	var category_id = $("#user_category_id").val();  
+	$.ajax({
+		url:'<%= settings_services_url %>',
+		type:'GET',
+		dataType:'json',
+		data:{
+			category_id: category_id,
+			authenticity_token: window._token
+		},
+		success:function(data){
+			// console.log(data);
+			serviceslist.html('');
+			$.each(data, function(index, item) {
+				serviceslist.append(new Option(item.title, item.id));
+			});
+		},
+			error:function(data){
+		}
+	});    
+});
+</script>

@@ -1,0 +1,71 @@
+<% @users.each do | user | %>
+<tr>
+  <td class="text-nowrap" data-sort="<%= user.created_at.strftime("%Y%m%d%H%M") %>"><%= user.created_at.strftime("%d/%m/%Y") %></td>			    	
+  <td class="text-nowrap">
+    <% unless user.subscription.nil? %>
+      <em class="fa fa-star" style="color: <%= (user.subscription.subscription_type == 'premium' ? 'gold' : 'silver') %>;"></em>
+    <% end %>
+  </td>  
+  <td class="text-nowrap">
+    <%= image_tag avatar_url(user), class: "navbar-profile-pic", style: "width: 20px;height: 20px;margin-bottom:5px;margin-right: 4px;" %> 
+      <a href="<%= edit_account_user_path(user) %>" data-toggle="tooltip" data-placement="top" data-title="<%= "#{user.fullname}\n#{user.email} " %>">
+        <%= user.display_name %>
+      </a>
+  </td>
+  <td class="text-center" scope="row">
+	<% unless user.public_url.nil? %>
+  	<a href="<%= account_public_url(user.public_url) %>" target="_blank">
+  		<em class="fa fa-globe-americas" data-toggle="tooltip" title="Profilo pubblico"></em>
+  	</a>
+  	<% end %>
+  </td>
+  <td class="text-nowrap"><%= user.prov %></td>
+  <td class="text-nowrap"><%= user.city %></td>
+  <td style="width: 25%;"><%= user.category.title if user.category.present? %></td>
+  <% if user.service.present? %>
+    <td style="width: 25%;" data-toggle="tooltip" data-placement="left" data-title="<%= user.service.title %>"><%= (user.service.title.size > 30 ? user.service.title[0..30].gsub(/$/, '...') : user.service.title) %></td>
+  <% else %>
+    <td style="width: 25%;">&nbsp;</td>
+  <% end %>
+  <td>
+    <% if user.requests.size > 0 %>
+    <a href="<%= account_users_requests_url(user.id) %>" data-id="<%= user.id %>" data-title="Richieste" data-toggle="modal" data-target="#details-modal">
+        <span class="badge btn-info"><%= user.requests.size %></span>
+    </a>
+    <% else %>
+        <span class="badge btn-info"><%= user.requests.size %></span>
+    <% end %>
+  </td>
+  <td class="text-center">
+	<div class="btn-group" role="group" aria-label="Docs">
+		<a class="btn btn-sm btn-secondary text-white btn-<%= (user.active ? 'success' : 'secondary' ) %>" data-title="<%= (user.active ? 'Attivo' : 'Non attivo' ) %>" data-toggle="tooltip">
+				<em class="fa fa-<%= (user.active ? 'check' : 'user-times' ) %>"></em>
+			</a>
+		</div>
+  </td>
+  <td class="text-center">
+	<div class="btn-group" role="group" aria-label="Docs">
+		<% if user.docsuploaded %>
+		<a href="<%= account_documents_showmodal_url(user.id) %>" data-id="<%= user.id %>" data-title="<%= (user.active ? 'Documenti OK' : 'Verifica documenti' ) %>" data-widget="tooltip" data-toggle="modal" data-target="#details-modal" class="btn btn-sm btn-<%= (user.active ? 'success' : 'warning' ) %> text-white">
+				<em class="fa fa-<%= (user.active ? 'check' : 'search' ) %>"></em>
+			</a>
+			<% else %>
+		<a class="btn btn-sm btn-secondary text-white" data-title="In attesa dei documenti" data-toggle="tooltip">
+				<em class="fab fa-stack-overflow"></em>
+			</a>
+			<% end %>
+		</div>
+  </td>
+  <td class="text-center">
+	<div class="btn-group" role="group" aria-label="stati">
+      	<!-- Active -->
+      	<%= form_for :user, url: account_user_path(user), method: :patch, class: "pull-left" do |f| %>
+      		<%= f.hidden_field :active, value: !user.active %>
+	      	<%= f.button :submit, class: "btn btn-sm ml-1 " + (user.active ? 'btn-danger' : 'btn-info'), data: {  toggle: "tooltip", title: (user.active ? 'Disattiva utente' : 'Attiva utente') } do %>
+				<em class="fa fa-<%= (user.active ? 'user-times' : 'user-plus' ) %>"></em>
+	      	<% end %>
+      	<% end %> 
+  	</div>
+  </td>
+</tr>
+<% end %>

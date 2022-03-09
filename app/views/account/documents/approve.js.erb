@@ -1,0 +1,2 @@
+$('#status_<%=@document.id%>').removeClass('bg-danger').removeClass('bg-warning').addClass('bg-success')
+$('#status_<%=@document.id%>').html('<small><%= @document.status.capitalize.gsub("_", " ") %></small>')

@@ -1,0 +1,9 @@
+<% content_for :title do %>
+Documenti inviati
+<% end%>
+
+<p><strong><%= @user.fullname %></strong> ha inviato i documenti relativi alla propria azienda</p>
+
+<p><strong><a href="<%= account_notification_url(@notification) %>">Clicca qui</a></strong> per verificarli</p>
+
+<p>Have a great day!</p>

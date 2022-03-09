@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="it">
+
+  <head>
+  <!-- Site Title -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <base href="/">
+  
+  <% if content_for?(:head) %>
+    <%= yield(:head) %>      
+  <% else %>
+    <title>AVQ | Add Value Quality</title>
+    <meta property="og:title" content="Add Value Quality" />
+    <meta property="og:locale" content="it_IT" />
+    <meta name="description" content="Servizi offerti dai più qualificati artigiani e professionisti presenti sul territorio nazionale italiano" />
+    <meta property="og:description" content="Servizi offerti dai più qualificati artigiani e professionisti presenti sul territorio nazionale italiano" />
+    <link rel="canonical" href="https://www.avqservizi.it/" />
+    <meta property="og:url" content="https://www.avqservizi.it/" />
+    <meta property="og:site_name" content="AVQ | Add Value Quality" />
+    <script type="application/ld+json">
+    {"url":"https://www.avqservizi.it/","name":"AVQ | Add Value Quality","description":"Servizi offerti dai più qualificati artigiani e professionisti presenti sul territorio nazionale italiano","headline":"Add Value Quality","@type":"WebSite","@context":"https://schema.org"}</script>
+    <meta name="keywords" content="servizi, offerta servizi, artigiani, artigiani qualificati, professionisti, territorio, italia, and qualità">
+  <% end %>    
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_pack_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
+
+    <link rel="stylesheet" href="/css/styles.min.css"/>
+    <link rel="stylesheet" href="/css/homepage.min.css"/>
+    <link rel="stylesheet" href="/css/datatables.min.css" media="print" onload="this.media='all'; this.onload = null"/>
+    <link rel="stylesheet" href="/css/custom.css"/>
+    <link rel="stylesheet" href="/css/messages.min.css" media="print" onload="this.media='all'; this.onload = null"/>
+
+    <script>
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    
+    <!-- google fonts -->
+    <link href="//fonts.googleapis.com/css?family=Muli:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- //google fonts -->
+
+    <%= render 'base/google_analytics' if Rails.env.production? %>
+    
+</head>
+
+<body>
+
+  <%= render 'base/notifications' %>
+
+  <%= render 'base/header' %>
+
+  <%= render 'base/banner' %>
+  
+  <%= render 'shared/usermenu' %>
+
+  <%= yield %>
+
+  <%= render 'base/footer' %>
+
+  <!-- Styles to remove from here... -->
+  <style>
+    ul.menu > li > a { color: #ffffff; font-weight: bold; font-size: 18px; text-shadow: 1px 1px #000; }
+    nav ul li:hover  { border-bottom: 3px solid #009686; }    
+    nav ul li.active { border-bottom: 4px solid #951b81; }    
+    nav.navbar-user ul li:hover  { border-bottom: 0px; }    
+    nav.navbar-user ul li.active { border-bottom: 0px; }    
+  </style>
+
+  <%= render 'base/privacy-footer' %>
+  </body>
+</html>

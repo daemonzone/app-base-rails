@@ -1,0 +1,8 @@
+<% if current_user.is_admin? %>
+	<%= render 'base/dashboard/cards/admin/summary' %>
+	<%= render 'base/dashboard/cards/admin/summary_users' %>
+<% end %>
+<% if current_user.is_partner? %>
+	<%= render 'base/dashboard/cards/partner/summary' %>
+	<%= render 'base/dashboard/cards/partner/subscription_offer' %>	
+<% end %>

@@ -1,0 +1,11 @@
+<% content_for :title do %>
+Acquisto effettuato
+<% end%>
+
+<p><%= @user.fullname %><%= " (#{@user.ragionesociale})" if @user.ragionesociale %> ha effettuato il seguente acquisto:</p>
+
+<p><a href="<%= account_order_url(@order.token)%>"><%=@order.token%></a> - <em><%=@order.product_title%></em> - <%= number_to_currency(@order.amount) %></p>
+
+<p>Pagamento: paypal / carta di credito</p>
+
+<p>Have a great day!</p>

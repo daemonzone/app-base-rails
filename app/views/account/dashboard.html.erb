@@ -1,0 +1,39 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-sm-12 mb-4">
+            <h3 class="mb-2"><%= (current_user.display_name ? current_user.display_name : current_user.fullname)%></h3>
+            <% unless current_user.category.nil? || current_user.service.nil? %>
+            <h5>&nbsp;<small><%= current_user.service.title %></small></h5>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="row">
+        <!--left col-->
+        <div class="col-sm-3 mb-4">
+
+          <%= render 'base/dashboard/userprofile' %>
+        
+          <div class="mb-4"></div>
+
+        </div>
+        <!-- // left col-->
+
+        <!-- main col-->
+        <div class="col-sm-6 mb-4">
+
+          <%= render 'base/dashboard/layout' %>
+
+        </div>
+        <!-- // main col-->
+
+        <!-- right col-->
+        <div class="col-sm-3">
+          
+          <%= render 'base/dashboard/layout_right' %>
+
+        </div>
+        <!-- // right col-->
+
+    </div><!--/row-->
+</div>

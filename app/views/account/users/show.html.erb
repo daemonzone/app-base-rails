@@ -1,0 +1,22 @@
+<div>
+	<div class="container public_page_bg" id="public_page_container" style="background-image:url(/images/bkgrounds/<%= (@user.public_bkground.present? ? @user.public_bkground : 'consulenza.jpg') %>);">
+		
+		<% if current_user && (current_user.id == @user.id) %>
+		<div class="bkground-buttons text-right">
+          	<%= form_for :user, url: account_edit_url(@user), action: :update, method: :post do |f| %>
+              	<%= f.hidden_field :public_bkground, value: @user.public_bkground %>      		
+				
+				<a href="<%= account_public_backgrounds_choose_url %>" data-toggle="modal" data-title="Scegli uno sfondo" data-target="#details-modal" class="btn btn-sm btn-info"><em class="fa fa-image"></em> Cambia sfondo</a>			          
+
+				<button type="submit" data-toggle="modal" data-title="Scegli uno sfondo" data-target="#details-modal" class="btn btn-sm btn-success" id="public-bkground-save-btn" style="display:none;">Salva modifiche</button>
+            <% end %>
+		</div>
+		<% end %>
+	    
+	    <div class="row">
+
+	        <%= render 'base/userprofile_public_show', :locals => { :user => @user = @user } %>
+
+	    </div><!--/row-->
+    </div>
+</div>

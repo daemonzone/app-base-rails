@@ -1,0 +1,13 @@
+<% if siteinfo['vat_percentage'].value.to_i <= 0 %>
+<!-- Marca da bollo -->
+<li class="list-group-item d-flex justify-content-between lh-condensed">
+    <div class="mr-3">
+        <h6 class="my-0">
+        	<small>Bollo su fattura</small>
+        	<br />
+            <small><em>(*) Compenso non assoggettato a ritenuta d’acconto ai sensi dell’art. 27 del D.L. n. 98 del 06.07.2011</em></small>
+        </h6>
+    </div>
+    <span class="text-muted text-nowrap"><small>2,00 &euro;</small></span>
+</li>
+<% end %>
