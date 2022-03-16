@@ -16,7 +16,6 @@ require("@rails/actiontext")
 window.jQuery 		= require("jquery")
 window.SweetAlert 	= require("sweetalert2")
 window.Dropzone 	= require("dropzone")
-window.dataTable 	= require("datatables.net-bs")
 window.Sortable 	= require('sortablejs').Sortable;
 window.Chart 		= require('chart.js');
 window.Datepicker 	= require('bootstrap-datepicker');
@@ -35,22 +34,7 @@ $(document).ready(function() {
 	$('[data-toggle="tooltip"]').tooltip()
 	$('[data-widget="tooltip"]').tooltip()
 
-	// Initialize DataTable with TurboLinks, avoid multiple reloads (causing wrapper duplication)
-	var dataTablesItems = $('[data-toggle="datatable"]');
-	// console.log(dataTablesItems);
-	dataTablesItems.each(index => {
-		if (dataTablesItems[0].dataset['dataTable'] != 'initialized') {
-		  dataTablesItems.dataTable({
-		  	  responsive: true,
-		  	  // columnDefs: [{ orderable: false, targets: 0 }],
-  			  order: [[0, 'desc']]
-		  });
-		  dataTablesItems[0].dataset['dataTable'] = 'initialized';
-		}
-	});
-
     $('.datepicker').datepicker( {format: 'dd/mm/yyyy', autoclose: true} );
-
 
 	$("input[required], select[required]").attr("oninvalid", "this.setCustomValidity('Campo obbligatorio')");
 	$("input[required], select[required]").attr("oninput", "setCustomValidity('')");

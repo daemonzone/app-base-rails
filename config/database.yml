@@ -15,12 +15,12 @@ default: &default
 
 development:
   <<: *default
-  database: avq-portaleservizi_development
+  database: development
 
 test:
   <<: *default
-  database: avq-portaleservizi_test
+  database: test
 
 production:
   <<: *default
-  database: avq-portaleservizi
+  database: app
